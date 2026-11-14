@@ -1,0 +1,24 @@
+
+> assignment4-destructuring-guide@0.0.0 errors
+> tsc -p tsconfig.errors.json --pretty false || exit 0
+
+errors/props-errors.tsx(9,20): error TS2322: Type '{ children: string; title: string; }' is not assignable to type 'IntrinsicAttributes & { title: string; }'.
+  Property 'children' does not exist on type 'IntrinsicAttributes & { title: string; }'.
+errors/props-errors.tsx(15,26): error TS2710: 'children' are specified twice. The attribute named 'children' will be overwritten.
+errors/props-errors.tsx(18,41): error TS2353: Object literal may only specify known properties, and 'course' does not exist in type 'ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | Promise<...>'.
+errors/props-errors.tsx(21,39): error TS2322: Type '() => string' is not assignable to type 'ReactNode'.
+errors/props-errors.tsx(27,21): error TS2741: Property 'children' is missing in type '{}' but required in type '{ children: ReactNode; }'.
+errors/props-errors.tsx(33,28): error TS2322: Type '"banana"' is not assignable to type '"button" | "submit" | "reset" | undefined'.
+errors/props-errors.tsx(36,28): error TS2322: Type '{ children: string; href: string; }' is not assignable to type 'IntrinsicAttributes & ClassAttributes<HTMLButtonElement> & ButtonHTMLAttributes<HTMLButtonElement>'.
+  Property 'href' does not exist on type 'IntrinsicAttributes & ClassAttributes<HTMLButtonElement> & ButtonHTMLAttributes<HTMLButtonElement>'. Did you mean 'ref'?
+errors/props-errors.tsx(40,23): error TS2339: Property 'key' does not exist on type '{ title: string; }'.
+errors/types-errors.ts(7,33): error TS7031: Binding element 'string' implicitly has an 'any' type.
+errors/types-errors.ts(7,50): error TS7031: Binding element 'number' implicitly has an 'any' type.
+errors/types-errors.ts(14,13): error TS18048: 'firstCourse' is possibly 'undefined'.
+errors/types-errors.ts(20,13): error TS18048: 'theme' is possibly 'undefined'.
+errors/types-errors.ts(25,21): error TS2339: Property 'name' does not exist on type '{ name: string; } | undefined'.
+errors/types-errors.ts(33,1): error TS2554: Expected 1 arguments, but got 0.
+errors/types-errors.ts(38,9): error TS2339: Property 'teacher' does not exist on type 'Course'.
+errors/types-errors.ts(43,9): error TS2540: Cannot assign to '0' because it is a read-only property.
+errors/types-errors.ts(43,19): error TS2540: Cannot assign to '1' because it is a read-only property.
+errors/types-errors.ts(47,27): error TS2493: Tuple type '[string, number]' of length '2' has no element at index '2'.
