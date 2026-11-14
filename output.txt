@@ -1,0 +1,183 @@
+
+> assignment4-destructuring-guide@0.0.0 all
+> npm run js && npm run ts
+
+
+> assignment4-destructuring-guide@0.0.0 js
+> node js/arrays.mjs && node js/objects.mjs && node js/params.mjs && node js/pitfalls.mjs && tsx js/props.jsx
+
+form 1: 15 40
+form 1 (plain): 15 40
+form 1 (only first): 15
+form 1 (one too many): 15 40 undefined
+form 2: Bir Derdim Var [ 'Leylim Ley', 'Dönence', 'Kara Toprak' ]
+form 2 (skip two): Leylim Ley
+form 2 (empty rest): Dönence []
+form 2 (spread copy is a new array): false 5
+form 3: Üsküdar Kadıköy
+form 3 (plain, swapped back): Kadıköy Üsküdar
+form 3 (inside an array): [ 'Kadıköy', 'Beşiktaş', 'Adalar' ]
+form 4: Kabataş Karaköy
+form 4 (undefined, null, 0, empty string): default null 0 ""
+form 5: Kürk Mantolu Madonna 160
+form 5 (plain): Kürk Mantolu Madonna 160
+form 5 (missing field): undefined
+form 5 (after pages = 999): 999 160
+form 6: Kürk Mantolu Madonna 160
+form 6 (old name is not created, only the new one): pageCountX is not defined
+form 7: to-read 160
+form 7 (undefined vs null): 3 null
+form 7 (rename + default): tr
+form 8: b7 {
+  title: 'Kürk Mantolu Madonna',
+  author: { name: 'Sabahattin Ali', born: 1907 },
+  pages: 160,
+  tags: [ 'novel', 'classic', 'berlin' ]
+}
+form 8 (rest is a new object): false [ 'title', 'author', 'pages', 'tags' ]
+form 8 (but nested values are shared): true
+form 9: Sabahattin Ali 1907 novel [ 'classic', 'berlin' ]
+form 9 (author is only a path, not a variable): author is not defined
+form 9 (nested with default): nobody
+form 9 (nested without default): Cannot read properties of undefined (reading 'name')
+form 10: Kürk Mantolu Madonna 160
+form 10 (title): Kürk Mantolu Madonna
+form 10 (pages): 160
+form 10 (year): (none)
+form 11: Calculus: 50 min work, 5 min break
+form 11 (no argument): nothing: 25 min work, 5 min break
+form 11 (null minutes): OOP: null min work, 5 min break
+form 11 (plain): 25
+form 11 (no = {}): Cannot destructure property 'subject' of 'undefined' as it is undefined.
+form 11b: 90 120
+form 12 (object): Calculus 4
+form 12 (object): OOP 3
+form 12 (object): Web Programming 3
+form 12 (Map): Monday A-204
+form 12 (Map): Wednesday Lab 3
+form 12 (objects): Monday OOP
+form 12 (objects): Tuesday Calculus
+form 12 (map): [ 'OOP', 'Calculus' ]
+form 12 (index): 0 OOP
+form 12 (index): 1 Calculus
+pitfall 1: TypeError - Cannot destructure property 'title' of 'value' as it is undefined.
+pitfall 1: TypeError - Cannot destructure property 'title' of 'value' as it is null.
+pitfall 1 ({} and 42 are fine): undefined undefined
+pitfall 2: null light
+pitfall 2 (fix with ??): 50
+pitfall 3: İstanbul Fatih
+pitfall 3 (without parentheses): SyntaxError - Unexpected token '='
+pitfall 4: Changed Notebook
+pitfall 5 (object): Barış Manço / Dönence
+pitfall 5 (array): Dönence / Barış Manço | wrong names: Dönence / Barış Manço
+pitfall 6: TypeError - {(intermediate value)(intermediate value)} is not iterable
+pitfall 7: 2 1 3
+pitfall 7 (without the ;): SyntaxError - Invalid left-hand side in assignment
+P1 props object: { title: 'SEN0415', children: 'Advanced Web Programming' }
+P1 A: <section><h2>SEN0415</h2>Advanced Web Programming</section>
+P1 B: <section><h2>SEN0415</h2>Advanced Web Programming</section>
+P1 C: <section><h2>SEN0415</h2>Advanced Web Programming</section>
+P2 between tags : <section><h2>OOP</h2>C++ labs</section>
+P2 as attribute : <section><h2>OOP</h2>C++ labs</section>
+P2 both         : <section><h2>OOP</h2>from tags</section>
+P2 element.props: { title: 'OOP', children: 'C++ labs' }
+P3 string      : <div>[Calculus]</div>
+P3 number      : <div>[4]</div>
+P3 zero        : <div>[0]</div>
+P3 one element : <div>[<b>OOP</b>]</div>
+P3 several     : <div>[<b>OOP</b><i>Calculus</i>text]</div>
+P3 array       : <div>[abc]</div>
+P3 undefined   : <div>[]</div>
+P3 null        : <div>[]</div>
+P3 false       : <div>[]</div>
+P3 true        : <div>[]</div>
+P3 empty string: <div>[]</div>
+P3 no children : <div>[]</div>
+P3 function    : <div>[]</div>
+P3 object      : THROWS Error - Objects are not valid as a React child (found: object with keys {course}). If you meant to render a collection of children, use an array instead.
+P3 function called: <p>Final in 12 days</p>
+P3 count one: <span>object</span>
+P3 count two: <span>array of 2</span>
+P3 count txt: <span>string</span>
+P4 rest has: [ 'id', 'className', 'data-week' ]
+P4 rest: <section id="midterm" class="warn" data-week="8"><h3>Exam</h3>Room A-204</section>
+P4 after  spread: <section class="notice">x</section>
+P4 before spread: <section class="mine">x</section>
+P4 before, none : <section class="notice">x</section>
+P4 leaky: <section title="Exam">x</section>
+P4 key: <span>key is undefined; props keys: title</span>
+P5 props   : <article><header><h2>Week 8</h2></header><main><p>Midterm</p></main><footer><small>İKÜ</small></footer></article>
+P5 children: <article><header><h2>Week 8</h2></header><main><p>Midterm</p></main><footer><small>İKÜ</small></footer></article>
+P5 children, wrong order: <article><footer><small>İKÜ</small></footer><header><h2>Week 8</h2></header></article>
+P6 missing  : <span>no label: 0</span>
+P6 undefined: <span>no label: 0</span>
+P6 null     : <span>: </span>
+P6 given    : <span>Unread: 3</span>
+P6 children default, none: <div><em>(empty)</em></div>
+P6 children default, null: <div></div>
+mutate props: THROWS TypeError - Cannot assign to read only property 'title' of object '#<Object>'
+mutate local: <span>ORIGINAL</span>
+
+> assignment4-destructuring-guide@0.0.0 ts
+> tsx ts/arrays.ts && tsx ts/objects.ts && tsx ts/params.ts && tsx ts/types.ts && tsx ts/props.tsx
+
+form 1: 15 40
+form 1 (string, number): Dönence 446
+form 2: Bir Derdim Var [ 'Leylim Ley', 'Dönence' ]
+form 2 (tuple): KARAKÖY [ 'Kadıköy' ]
+form 3: Üsküdar Kadıköy
+form 4: 7 7
+form 4 (from []): 3
+form 5: Kürk Mantolu Madonna 160
+form 6: Kürk Mantolu Madonna 160
+form 7: to-read
+form 7 (no default, may be undefined): undefined
+form 8: b7 [ 'string', 'object', 'number', 'object' ]
+form 9: Sabahattin Ali 1907 novel [ 'classic', 'berlin' ]
+form 9 (optional nested with default): nobody
+form 10: Kürk Mantolu Madonna 160
+form 11: Calculus: 50 min work, 5 min break
+form 11 (no argument): nothing: 25 min work, 5 min break
+form 11b: 90 120
+form 12 (object): Calculus 8 hours of study
+form 12 (object): OOP 6 hours of study
+form 12 (object): Web Programming 6 hours of study
+form 12 (Map): Mon A-204
+form 12 (Map): Wed Lab 3
+form 12 (index): 0 OOP
+form 12 (index): 1 Calculus
+T1 (rename, not a type): Dönence
+T1 (type after the pattern): Dönence (7 min)
+T2 tuple: 15 030
+T2 loose: string number
+T2 as const: oop 6
+T2 inferred array: a
+T3 narrowed: CALCULUS
+T3 default: 8
+T3 really missing: undefined -> (handled)
+T3 tuple has no undefined: CALCULUS
+T4: undefined light 14
+T4 in parameter: DARK 14px
+T5 at run time it is just undefined: undefined
+T5 fixed: unknown
+P1 A: <section><h2>SEN0415</h2>Advanced Web Programming</section>
+P1 B: <section><h2>SEN0415</h2>Advanced Web Programming</section>
+P2 between tags : <section><h2>OOP</h2>C++ labs</section>
+P2 as attribute : <section><h2>OOP</h2>C++ labs</section>
+P3 [0] string: <div>[text]</div>
+P3 [1] number: <div>[4]</div>
+P3 [2] object: <div>[<b>OOP</b>]</div>
+P3 [3] undefined: <div>[]</div>
+P3 [4] object: <div>[]</div>
+P3 [5] boolean: <div>[]</div>
+P3 function child: <p>Final in 12 days</p>
+P4: <section id="midterm" class="notice warn" aria-live="polite"><h3>Exam</h3>Room A-204</section>
+P5 props   : <article><header><h2>Week 8</h2></header><main><p>Midterm</p></main><footer><small>İKÜ</small></footer></article>
+P5 children: <article><h2>Week 8</h2><p>Midterm</p></article>
+P6 missing  : <span>NO LABEL: 0</span>
+P6 undefined: <span>NO LABEL: 0</span>
+P6 null     : <span>NO LABEL: null!</span>
+P7 same shape: {"title":"x","children":"y"}
+P7 button: <button type="submit" title="save">Save task</button>
+P7 busy  : <button type="submit" disabled="">Saving…</button>
+P7 required children: <p>must be here</p>
