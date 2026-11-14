@@ -4,7 +4,7 @@ Name: Meryem Esma Eröz
 Student number: 2200005798  
 Course: SEN0415 Advanced Web Programming, Fall 2026, Assignment 4
 
-Bonuses claimed: none.
+Bonuses claimed: **Bonus 4: Git repository** (see the section before My own log).
 
 My data in the examples: ferry trips from Eminönü, a Turkish playlist, books on my reading
 list, my course schedule and cards for a student dashboard.
@@ -898,6 +898,23 @@ The message (E6) is `Property 'teacher' does not exist on type 'Course'.` In Jav
 silently `undefined`. The fix: add `teacher?: string` to the type and give a default.
 
 ---
+
+## Bonus 4: Git repository
+
+Bonus 4: Git repository, https://github.com/eesmaeroz/assignment4-destructuring
+
+- `.gitignore` leaves out `node_modules` (and `dist`).
+- It runs after a fresh clone:
+
+  ```
+  git clone https://github.com/eesmaeroz/assignment4-destructuring.git
+  cd assignment4-destructuring
+  npm install
+  npm run all
+  ```
+
+- The history is in steps: project setup, JavaScript examples, TypeScript examples and
+  compiler errors, the field guide with the real output, then this section.
 
 ## My own log
 
