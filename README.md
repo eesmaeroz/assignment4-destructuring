@@ -4,7 +4,7 @@ Name: Meryem Esma Eröz
 Student number: 2200005798  
 Course: SEN0415 Advanced Web Programming, Fall 2026, Assignment 4
 
-Bonuses claimed: **Bonus 4: Git repository** (see the section before My own log).
+Bonuses claimed: **Bonus 3: Real code** and **Bonus 4: Git repository** (both sections are before My own log).
 
 My data in the examples: ferry trips from Eminönü, a Turkish playlist, books on my reading
 list, my course schedule and cards for a student dashboard.
@@ -898,6 +898,192 @@ The message (E6) is `Property 'teacher' does not exist on type 'Course'.` In Jav
 silently `undefined`. The fix: add `teacher?: string` to the type and give a default.
 
 ---
+
+## Bonus 3: Real code
+
+Bonus 3: Real code
+
+Sources:
+
+- **Task Manager** from Assignment 3: https://github.com/eesmaeroz/assignment3 (`src/`).
+- **esbuild 0.28.2**, installed in this project's `node_modules/esbuild` (it is the package
+  whose install script npm skipped, see log entry 2).
+- **shadcn/ui**, an open-source React component library:
+  https://github.com/shadcn-ui/ui, folder `apps/v4/registry/new-york-v4/ui`, commit `e62c943`.
+
+### Case 1: `const [state, dispatch] = useReducer(...)`
+
+`assignment3/src/App.tsx:69`
+
+```ts
+const [state, dispatch] = useReducer(taskReducer, initialState)
+```
+
+**Form 1** (values by position from a function's tuple return). Without destructuring:
+
+```ts
+const pair = useReducer(taskReducer, initialState)
+const state = pair[0]
+const dispatch = pair[1]
+```
+
+React returns a pair because the caller should choose the names. With an object
+(`{ state, dispatch }`) every component would have to rename (form 6) to get a second
+reducer; with a tuple I just write other names in the brackets.
+
+### Case 2: `TaskRow({ task, onNext, onDelete })`, React props
+
+`assignment3/src/TaskRow.tsx:5`
+
+```tsx
+type TaskRowProps = { task: Task; onNext: () => void; onDelete: () => void }
+export default function TaskRow({ task, onNext, onDelete }: TaskRowProps) {
+```
+
+**Form 11 with form 5 inside** (a pattern in the parameter, properties by name), and the
+type after the whole pattern (T1). Without destructuring:
+
+```tsx
+export default function TaskRow(props: TaskRowProps) {
+  const task = props.task
+  const onNext = props.onNext
+  const onDelete = props.onDelete
+```
+
+**Props and children here:** `task`, `onNext` and `onDelete` are props (attributes in
+`<TaskRow task={t} onNext={...} onDelete={...} />`). There is **no children**: the type has
+no `children`, so `<TaskRow ...>text</TaskRow>` would be a compile error (like E9), and the
+row is always used as a self-closing tag.
+
+### Case 3: `FilterBar({ active, counts, dispatch })`
+
+`assignment3/src/App.tsx:34`
+
+```tsx
+function FilterBar({ active, counts, dispatch }: FilterBarProps) {
+```
+
+Again **form 11 + form 5**. All three are props, there is no children. `dispatch` is
+passed down from case 1, so the same function is taken out of a tuple in `App` (form 1)
+and out of a props object in `FilterBar` (form 5).
+
+### Case 4: `const { pkg, subpath, isWASM } = ...` in esbuild
+
+`node_modules/esbuild/install.js:266`
+
+```js
+const { pkg, subpath, isWASM } = pkgAndSubpathForCurrentPlatform();
+```
+
+**Form 5** on the return value of a function. Without destructuring:
+
+```js
+const result = pkgAndSubpathForCurrentPlatform();
+const pkg = result.pkg;
+const subpath = result.subpath;
+const isWASM = result.isWASM;
+```
+
+This is the "return several values" idea of form 1, but with an object, because three
+values of different meaning are easy to mix up by position (pitfall 5). Here names are
+safer than positions.
+
+### Case 5: `let [major, minor] = process.versions.node.split(".")` in esbuild
+
+`node_modules/esbuild/lib/main.js:2093`
+
+```js
+let [major, minor] = process.versions.node.split(".");
+if (+major < 12 || +major === 12 && +minor < 17 || ...
+```
+
+**Form 1** on an array from `split`, with the third item (the patch version) ignored.
+Without destructuring: `const parts = ...split("."); let major = parts[0]; let minor = parts[1];`
+
+Watch out: the values are **strings** (`split` gives `[ '22', '23', '4' ]` on Node 22.23.4),
+which is why esbuild writes `+major` everywhere to turn them into numbers. In TypeScript
+with `noUncheckedIndexedAccess` both would be `string | undefined` (T3).
+
+### Case 6: `for (const [key, value] of [...])` in esbuild
+
+`node_modules/esbuild/lib/main.js:1753`
+
+```js
+for (const [key, value] of [["errors", errors], ["warnings", warnings]]) {
+  Object.defineProperty(error, key, { ... value ... })
+```
+
+**Form 12** (pattern in a loop), over a hand-written array of pairs instead of
+`Object.entries`. Without destructuring: `for (const pair of list) { const key = pair[0]; const value = pair[1]; ... }`.
+It gives the same pairs as `Object.entries({ errors, warnings })`.
+
+### Case 7: `Card({ className, ...props })` in shadcn/ui, React props and children
+
+`apps/v4/registry/new-york-v4/ui/card.tsx:4`
+
+```tsx
+function Card({ className, ...props }: React.ComponentProps<"div">) {
+  return (
+    <div
+      data-slot="card"
+      className={cn("flex flex-col gap-6 rounded-xl border ...", className)}
+      {...props}
+    />
+  )
+}
+```
+
+**Form 11 + form 8** (rest in the parameter), then **spread** onto the DOM element, the
+exact pattern of P4, typed with `ComponentProps<'div'>` like P7.
+
+**Props and children here:** only `className` is taken out by name. **children is never
+named**, but it still works: in `<Card>Hello</Card>` the content arrives as
+`props.children`, the rest pattern collects it into `props` together with `id`,
+`onClick` and the rest, and `{...props}` puts it back on the `<div>` as its `children`.
+This is P2 in real code: children is only a prop, so it travels like any other prop.
+
+`className` is taken out because it must be **merged** with the card's own classes; if it
+stayed in `props`, the spread (written after `className=`) would overwrite the card's
+classes (the "after the spread wins" rule from P4).
+
+### Case 8: where destructuring makes the code worse (Undo in Assignment 3)
+
+`assignment3/src/taskReducer.ts:71`
+
+```ts
+case 'undo': {
+  if (state.past.length === 0) return state
+  return {
+    ...state,
+    tasks: state.past[state.past.length - 1],
+    past: state.past.slice(0, -1),
+  }
+}
+```
+
+The code needs the **last** item and **everything before it**. The pattern that looks
+natural is not allowed:
+
+```js
+const [...earlier, last] = state.past
+```
+
+```
+SyntaxError: Rest element must be last element
+```
+
+A rest element can only be at the end. A version that does work uses a computed key
+(form 10) with `length`:
+
+```js
+const { length, [length - 1]: last } = state.past
+```
+
+It runs (on `[['a'], ['b'], ['c']]` it gives `[ 'c' ]`), but it is much harder to read than
+`state.past[state.past.length - 1]`, and it creates a variable `length` for nothing. So
+here destructuring makes the code **worse**, and the plain index (or `state.past.at(-1)`)
+is the better choice. Destructuring is good at "the first few and the rest", not at
+"the last one".
 
 ## Bonus 4: Git repository
 
