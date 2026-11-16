@@ -1,0 +1,1851 @@
+% Meryem Esma Eröz, 2200005798
+% Generated from ../README.md by build.sh
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
+%
+\documentclass[
+  10pt,
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+  \setmainfont[]{DejaVu Serif}
+  \setsansfont[]{DejaVu Sans}
+  \setmonofont[Scale=0.88]{DejaVu Sans Mono}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage[a4paper,margin=2.2cm]{geometry}
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{5}
+% Meryem Esma Eröz, 2200005798
+% Extra preamble for the field guide: code style, page header, table of contents spacing.
+\usepackage{xcolor}
+\usepackage[newfloat]{minted}
+\definecolor{codeframe}{HTML}{8C959F}
+\setminted{
+  fontsize=\small,
+  breaklines=true,
+  breakanywhere=true,
+  frame=leftline,
+  rulecolor=\color{codeframe},
+  framerule=1.2pt,
+  framesep=6pt,
+  xleftmargin=4pt,
+  style=friendly,
+}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small Destructuring Field Guide}
+\fancyhead[R]{\small Meryem Esma Eröz, 2200005798}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\setlength{\headheight}{14pt}
+\sloppy
+\makeatletter
+\renewcommand*\l@subsection{\@dottedtocline{2}{1.5em}{2.8em}}
+\makeatother
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Destructuring Field Guide},
+  pdfauthor={Meryem Esma Eröz --- 2200005798},
+  colorlinks=true,
+  linkcolor={blue},
+  filecolor={Maroon},
+  citecolor={Blue},
+  urlcolor={blue},
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Destructuring Field Guide}
+\usepackage{etoolbox}
+\makeatletter
+\providecommand{\subtitle}[1]{% add subtitle to \maketitle
+  \apptocmd{\@title}{\par {\large #1 \par}}{}{}
+}
+\makeatother
+\subtitle{SEN0415 Advanced Web Programming, Assignment 4}
+\author{Meryem Esma Eröz --- 2200005798}
+\date{November 2026}
+
+\begin{document}
+\maketitle
+
+\renewcommand*\contentsname{Contents}
+{
+\hypersetup{linkcolor=black}
+\setcounter{tocdepth}{2}
+\tableofcontents
+}
+Bonuses claimed: \textbf{Bonus 1: LaTeX}, \textbf{Bonus 3: Real code}
+and \textbf{Bonus 4: Git repository} (the three sections are before My
+own log).
+
+My data in the examples: ferry trips from Eminönü, a Turkish playlist,
+books on my reading list, my course schedule and cards for a student
+dashboard.
+
+\hypertarget{run}{%
+\section{Run}\label{run}}
+
+\begin{minted}{text}
+npm install
+npm run all      # runs the JS and TS examples
+npm run check    # type-checks in strict mode
+npm run errors   # compiles errors/, the lines that are SUPPOSED to fail (always exits 0)
+\end{minted}
+
+Node 22, TypeScript 5.8, React 19. \texttt{output.\allowbreak{}txt} is
+\texttt{npm\ run\ all\ \textgreater{}\allowbreak{}\ output.\allowbreak{}txt}.
+React prints its warnings with \texttt{console.\allowbreak{}error}, so
+they go to stderr and are \textbf{not} in
+\texttt{output.\allowbreak{}txt}; I saved them separately in
+\texttt{output-stderr.\allowbreak{}txt}. The compiler messages for the
+rejected lines are in
+\texttt{errors/\allowbreak{}compiler-output.\allowbreak{}txt}.
+
+\hypertarget{files}{%
+\subsection{Files}\label{files}}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.4850}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.4850}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+File
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+What is in it
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\texttt{js/\allowbreak{}arrays.\allowbreak{}mjs} & forms 1--4 \\
+\texttt{js/\allowbreak{}objects.\allowbreak{}mjs} & forms 5--10 \\
+\texttt{js/\allowbreak{}params.\allowbreak{}mjs} & forms 11, 11b, 12 \\
+\texttt{js/\allowbreak{}pitfalls.\allowbreak{}mjs} & seven pitfalls \\
+\texttt{js/\allowbreak{}props.\allowbreak{}jsx} & P1--P6 and the
+``change props'' experiment \\
+\texttt{ts/\allowbreak{}arrays.\allowbreak{}ts},
+\texttt{ts/\allowbreak{}objects.\allowbreak{}ts},
+\texttt{ts/\allowbreak{}params.\allowbreak{}ts} & forms 1--12 with
+types \\
+\texttt{ts/\allowbreak{}types.\allowbreak{}ts} & T1--T5 \\
+\texttt{ts/\allowbreak{}props.\allowbreak{}tsx} & P1--P7 typed \\
+\texttt{errors/\allowbreak{}types-errors.\allowbreak{}ts},
+\texttt{errors/\allowbreak{}props-errors.\allowbreak{}tsx} & E1--E16:
+code the compiler rejects, on purpose \\
+\end{longtable}
+
+\hypertarget{one-idea-for-the-whole-guide}{%
+\subsection{One idea for the whole
+guide}\label{one-idea-for-the-whole-guide}}
+
+A pattern on the left is a short way to write several plain assignments.
+Every entry below shows the plain version, because if I can write the
+plain version I know what the pattern does.
+
+\textbf{Rest and spread} use the same three dots for opposite jobs:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{rest} is on the \emph{left} (in a pattern):
+  \texttt{const\ {[}first,\ .\allowbreak{}.\allowbreak{}.\allowbreak{}others{]\allowbreak{}}\ =\ list}
+  --- \emph{collects} the leftover items \textbf{into} a new
+  array/object.
+\item
+  \textbf{spread} is on the \emph{right} (in an expression):
+  \texttt{const\ copy\ =\ {[}.\allowbreak{}.\allowbreak{}.\allowbreak{}list{]\allowbreak{}}},
+  \texttt{\textless{}\allowbreak{}section\ \{.\allowbreak{}.\allowbreak{}.\allowbreak{}rest\}\textgreater{}\allowbreak{}}
+  --- \emph{expands} an array/object \textbf{out} into separate items.
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{field-guide}{%
+\section{Field guide}\label{field-guide}}
+
+\hypertarget{form-1-values-by-position-const-x-y--f}{%
+\subsection{\texorpdfstring{Form 1: values by position,
+\texttt{const\ {[}x,\ y{]\allowbreak{}}\ =\ f()}}{Form 1: values by position, }}\label{form-1-values-by-position-const-x-y--f}}
+
+\textbf{Syntax:}
+\texttt{const\ {[}shortest,\ longest{]\allowbreak{}}\ =\ shortestAndLongest(ferryMinutes)}
+
+\textbf{Example} (\texttt{js/\allowbreak{}arrays.\allowbreak{}mjs}):
+
+\begin{minted}{js}
+function shortestAndLongest(minutes) {
+  return [Math.min(...minutes), Math.max(...minutes)]
+}
+const ferryMinutes = [25, 15, 40, 20] // Kadıköy, Üsküdar, Adalar, Beşiktaş
+const [shortest, longest] = shortestAndLongest(ferryMinutes)
+console.log('form 1:', shortest, longest)
+const [onlyFirst] = shortestAndLongest(ferryMinutes)
+const [p, q, r] = shortestAndLongest(ferryMinutes)
+\end{minted}
+
+\textbf{Plain version:}
+\texttt{const\ pair\ =\ f();\ const\ shortest\ =\ pair{[}0{]\allowbreak{}};\ const\ longest\ =\ pair{[}1{]\allowbreak{}}}
+
+\textbf{Output:}
+
+\begin{minted}{text}
+form 1: 15 40
+form 1 (only first): 15
+form 1 (one too many): 15 40 undefined
+\end{minted}
+
+\textbf{Use it when:} a function returns a small, fixed number of values
+in a known order (\texttt{useState}, \texttt{useReducer},
+\texttt{Object.\allowbreak{}entries} pairs).
+
+\textbf{Watch out:} only the position counts, not the name. Fewer
+variables than items is fine (extras ignored); more variables gives
+\texttt{undefined}, without an error in JavaScript. In TypeScript, a
+tuple return type makes the extra variable a compile error (E8).
+
+\hypertarget{form-2-skip-and-collect-const--second-others--list}{%
+\subsection{\texorpdfstring{Form 2: skip and collect,
+\texttt{const\ {[},\ second,\ .\allowbreak{}.\allowbreak{}.\allowbreak{}others{]\allowbreak{}}\ =\ list}}{Form 2: skip and collect, }}\label{form-2-skip-and-collect-const--second-others--list}}
+
+\textbf{Syntax:}
+\texttt{const\ {[},\ secondSong,\ .\allowbreak{}.\allowbreak{}.\allowbreak{}laterSongs{]\allowbreak{}}\ =\ playlist}
+
+\textbf{Example} (\texttt{js/\allowbreak{}arrays.\allowbreak{}mjs}):
+
+\begin{minted}{js}
+const playlist = ['Gesi Bağları', 'Bir Derdim Var', 'Leylim Ley', 'Dönence', 'Kara Toprak']
+const [, secondSong, ...laterSongs] = playlist
+const [, , thirdSong] = playlist
+const [one, ...nothingLeft] = ['Dönence']
+const copy = [...playlist] // spread, not rest
+\end{minted}
+
+\textbf{Plain version:}
+\texttt{const\ secondSong\ =\ playlist{[}1{]\allowbreak{}};\ const\ laterSongs\ =\ playlist.\allowbreak{}slice(2)}
+
+\textbf{Output:}
+
+\begin{minted}{text}
+form 2: Bir Derdim Var [ 'Leylim Ley', 'Dönence', 'Kara Toprak' ]
+form 2 (skip two): Leylim Ley
+form 2 (empty rest): Dönence []
+form 2 (spread copy is a new array): false 5
+\end{minted}
+
+\textbf{Use it when:} you want ``the head and the tail'' of a list, or a
+fixed slot in the middle.
+
+\textbf{Watch out:} each empty comma is one skipped item, and
+\texttt{,\ ,} is easy to misread. The rest element is never
+\texttt{undefined}, it is an empty array when nothing is left, and it
+must be the \textbf{last} item in the pattern.
+
+\hypertarget{form-3-swap-a-b--b-a}{%
+\subsection{\texorpdfstring{Form 3: swap,
+\texttt{{[}a,\ b{]\allowbreak{}}\ =\ {[}b,\ a{]\allowbreak{}}}}{Form 3: swap, }}\label{form-3-swap-a-b--b-a}}
+
+\textbf{Syntax:}
+\texttt{;{[}morningLine,\ eveningLine{]\allowbreak{}}\ =\ {[}eveningLine,\ morningLine{]\allowbreak{}}}
+
+\textbf{Example} (\texttt{js/\allowbreak{}arrays.\allowbreak{}mjs}):
+
+\begin{minted}{js}
+let morningLine = 'Kadıköy'
+let eveningLine = 'Üsküdar'
+;[morningLine, eveningLine] = [eveningLine, morningLine]
+const queue = ['Adalar', 'Beşiktaş', 'Kadıköy']
+;[queue[0], queue[2]] = [queue[2], queue[0]]
+\end{minted}
+
+\textbf{Plain version:} \texttt{let\ tmp\ =\ a;\ a\ =\ b;\ b\ =\ tmp}
+--- the right side \texttt{{[}b,\ a{]\allowbreak{}}} is a new temporary
+array, so the pattern does the \texttt{tmp} for me.
+
+\textbf{Output:}
+
+\begin{minted}{text}
+form 3: Üsküdar Kadıköy
+form 3 (inside an array): [ 'Kadıköy', 'Beşiktaş', 'Adalar' ]
+\end{minted}
+
+\textbf{Use it when:} swapping two variables or two array slots (sorting
+by hand).
+
+\textbf{Watch out:} there is no \texttt{const}/\texttt{let}, so the line
+starts with \texttt{{[}}. Without a semicolon on the line before,
+JavaScript glues it to the previous line (pitfall 7). I start such lines
+with \texttt{;}. The variables must be \texttt{let}, not \texttt{const}.
+
+\hypertarget{form-4-array-defaults-const-a--1-b--2--}{%
+\subsection{\texorpdfstring{Form 4: array defaults,
+\texttt{const\ {[}a\ =\ 1,\ b\ =\ 2{]\allowbreak{}}\ =\ {[}{]\allowbreak{}}}}{Form 4: array defaults, }}\label{form-4-array-defaults-const-a--1-b--2--}}
+
+\textbf{Syntax:}
+\texttt{const\ {[}firstStop\ =\ \allowbreak{}\textquotesingle{}Eminönü\allowbreak{}\textquotesingle{},\ secondStop\ =\ \allowbreak{}\textquotesingle{}Karaköy\allowbreak{}\textquotesingle{}{]\allowbreak{}}\ =\ {[}\allowbreak{}\textquotesingle{}Kabataş\allowbreak{}\textquotesingle{}{]\allowbreak{}}}
+
+\textbf{Example} (\texttt{js/\allowbreak{}arrays.\allowbreak{}mjs}):
+
+\begin{minted}{js}
+const [firstStop = 'Eminönü', secondStop = 'Karaköy'] = ['Kabataş']
+const [d1 = 'default'] = [undefined]
+const [d2 = 'default'] = [null]
+const [d3 = 'default'] = [0]
+const [d4 = 'default'] = ['']
+\end{minted}
+
+\textbf{Plain version:}
+\texttt{let\ secondStop\ =\ arr{[}1{]\allowbreak{}};\ if\ (secondStop\ ===\ undefined)\ secondStop\ =\ \allowbreak{}\textquotesingle{}Karaköy\allowbreak{}\textquotesingle{}}
+
+\textbf{Output:}
+
+\begin{minted}{text}
+form 4: Kabataş Karaköy
+form 4 (undefined, null, 0, empty string): default null 0 ""
+\end{minted}
+
+\textbf{Use it when:} the array may be shorter than you need
+(\texttt{text.\allowbreak{}split(\allowbreak{}\textquotesingle{}:\allowbreak{}\textquotesingle{})}).
+
+\textbf{Watch out:} the test is \texttt{===\ undefined}, not ``falsy''.
+\texttt{null}, \texttt{0} and
+\texttt{\allowbreak{}\textquotesingle{}\allowbreak{}\textquotesingle{}}
+are kept. That is different from \texttt{\textbar{}\textbar{}}, which
+would replace all of them.
+
+\hypertarget{form-5-by-name-let--a-b---t}{%
+\subsection{\texorpdfstring{Form 5: by name,
+\texttt{let\ \{\ a,\ b\ \}\ =\ t}}{Form 5: by name, }}\label{form-5-by-name-let--a-b---t}}
+
+\textbf{Syntax:} \texttt{let\ \{\ title,\ pages\ \}\ =\ book}
+
+\textbf{Example} (\texttt{js/\allowbreak{}objects.\allowbreak{}mjs}):
+
+\begin{minted}{js}
+const book = {
+  id: 'b7', title: 'Kürk Mantolu Madonna',
+  author: { name: 'Sabahattin Ali', born: 1907 },
+  pages: 160, tags: ['novel', 'classic', 'berlin'],
+}
+let { title, pages } = book
+let { isbn } = book
+pages = 999
+console.log('form 5 (after pages = 999):', pages, book.pages)
+\end{minted}
+
+\textbf{Plain version:}
+\texttt{let\ title\ =\ book.\allowbreak{}title;\ let\ pages\ =\ book.\allowbreak{}pages}
+
+\textbf{Output:}
+
+\begin{minted}{text}
+form 5: Kürk Mantolu Madonna 160
+form 5 (missing field): undefined
+form 5 (after pages = 999): 999 160
+\end{minted}
+
+\textbf{Use it when:} you need several fields of one object and the
+field names are good variable names.
+
+\textbf{Watch out:} the variable name \textbf{must} be the property
+name. A typo (\texttt{titel}) is silently \texttt{undefined} in
+JavaScript; TypeScript catches it (E6). The variables are copies of the
+values: changing \texttt{pages} does not change
+\texttt{book.\allowbreak{}pages}.
+
+\hypertarget{form-6-rename-const--a-alpha---t}{%
+\subsection{\texorpdfstring{Form 6: rename,
+\texttt{const\ \{\ a:\ alpha\ \}\ =\ t}}{Form 6: rename, }}\label{form-6-rename-const--a-alpha---t}}
+
+\textbf{Syntax:}
+\texttt{const\ \{\ title:\ heading,\ pages:\ pageCount\ \}\ =\ book}
+
+\textbf{Example} (\texttt{js/\allowbreak{}objects.\allowbreak{}mjs}):
+
+\begin{minted}{js}
+const { title: heading, pages: pageCount } = book
+console.log('form 6:', heading, pageCount)
+console.log(pageCountX) // in a try/catch
+\end{minted}
+
+\textbf{Plain version:}
+\texttt{const\ heading\ =\ book.\allowbreak{}title;\ const\ pageCount\ =\ book.\allowbreak{}pages}
+
+\textbf{Output:}
+
+\begin{minted}{text}
+form 6: Kürk Mantolu Madonna 160
+form 6 (old name is not created, only the new one): pageCountX is not defined
+\end{minted}
+
+\textbf{Use it when:} the property name clashes with a variable you
+already have (two \texttt{title}s in one function), or it is not a clear
+name in this place.
+
+\textbf{Watch out:} read the colon as ``goes into'':
+\texttt{title:\ heading} = ``title goes into heading''. It looks exactly
+like a TypeScript type annotation, but it is not (T1).
+
+\hypertarget{form-7-object-defaults-const--a--1---t}{%
+\subsection{\texorpdfstring{Form 7: object defaults,
+\texttt{const\ \{\ a\ =\ 1\ \}\ =\ t}}{Form 7: object defaults, }}\label{form-7-object-defaults-const--a--1---t}}
+
+\textbf{Syntax:}
+\texttt{const\ \{\ status\ =\ \allowbreak{}\textquotesingle{}to-read\allowbreak{}\textquotesingle{}\ \}\ =\ book}
+
+\textbf{Example} (\texttt{js/\allowbreak{}objects.\allowbreak{}mjs}):
+
+\begin{minted}{js}
+const { status = 'to-read', pages: p7 = 100 } = book
+const { rating = 3 } = { rating: undefined }
+const { score = 3 } = { score: null }
+const { language: lang = 'tr' } = book
+\end{minted}
+
+\textbf{Plain version:}
+\texttt{let\ status\ =\ book.\allowbreak{}status;\ if\ (status\ ===\ undefined)\ status\ =\ \allowbreak{}\textquotesingle{}to-read\allowbreak{}\textquotesingle{}}
+
+\textbf{Output:}
+
+\begin{minted}{text}
+form 7: to-read 160
+form 7 (undefined vs null): 3 null
+form 7 (rename + default): tr
+\end{minted}
+
+\textbf{Use it when:} reading settings or options where a missing field
+has a sensible value.
+
+\textbf{Watch out:} \texttt{null} does \textbf{not} trigger the default
+(pitfall 2). Rename and default together are written
+\texttt{source:\ newName\ =\ default}.
+
+\hypertarget{form-8-object-rest-const--a-others---t}{%
+\subsection{\texorpdfstring{Form 8: object rest,
+\texttt{const\ \{\ a,\ .\allowbreak{}.\allowbreak{}.\allowbreak{}others\ \}\ =\ t}}{Form 8: object rest, }}\label{form-8-object-rest-const--a-others---t}}
+
+\textbf{Syntax:}
+\texttt{const\ \{\ id,\ .\allowbreak{}.\allowbreak{}.\allowbreak{}withoutId\ \}\ =\ book}
+
+\textbf{Example} (\texttt{js/\allowbreak{}objects.\allowbreak{}mjs}):
+
+\begin{minted}{js}
+const { id, ...withoutId } = book
+console.log('form 8 (rest is a new object):', withoutId === book, Object.keys(withoutId))
+console.log('form 8 (but nested values are shared):', withoutId.author === book.author)
+\end{minted}
+
+\textbf{Plain version:}
+\texttt{const\ id\ =\ book.\allowbreak{}id;\ const\ withoutId\ =\ \{\ .\allowbreak{}.\allowbreak{}.\allowbreak{}book\ \};\ delete\ withoutId.\allowbreak{}id}
+
+\textbf{Output:}
+
+\begin{minted}{text}
+form 8: b7 {
+  title: 'Kürk Mantolu Madonna',
+  author: { name: 'Sabahattin Ali', born: 1907 },
+  pages: 160,
+  tags: [ 'novel', 'classic', 'berlin' ]
+}
+form 8 (rest is a new object): false [ 'title', 'author', 'pages', 'tags' ]
+form 8 (but nested values are shared): true
+\end{minted}
+
+\textbf{Use it when:} you want ``everything except these'' --- removing
+a field without \texttt{delete}, or passing the remaining props on to a
+DOM element (P4).
+
+\textbf{Watch out:} the copy is \textbf{shallow}: \texttt{withoutId} is
+a new object, but \texttt{withoutId.\allowbreak{}author} is the same
+object as \texttt{book.\allowbreak{}author} (pitfall 4).
+
+\hypertarget{form-9-nested-patterns-const--p--x--list-first---t}{%
+\subsection{\texorpdfstring{Form 9: nested patterns,
+\texttt{const\ \{\ p:\ \{\ x\ \},\ list:\ {[}first{]\allowbreak{}}\ \}\ =\ t}}{Form 9: nested patterns, }}\label{form-9-nested-patterns-const--p--x--list-first---t}}
+
+\textbf{Syntax:}
+\texttt{const\ \{\ author:\ \{\ name:\ authorName,\ born\ \},\ tags:\ {[}firstTag,\ .\allowbreak{}.\allowbreak{}.\allowbreak{}otherTags{]\allowbreak{}}\ \}\ =\ book}
+
+\textbf{Example} (\texttt{js/\allowbreak{}objects.\allowbreak{}mjs}):
+
+\begin{minted}{js}
+const { author: { name: authorName, born }, tags: [firstTag, ...otherTags] } = book
+console.log(author) // in a try/catch
+const loanedBook = { title: 'Saatleri Ayarlama Enstitüsü' }
+const { borrower: { name: borrowerName } = { name: 'nobody' } } = loanedBook
+const { borrower: { name } } = loanedBook // in a try/catch
+\end{minted}
+
+\textbf{Plain version:}
+\texttt{const\ authorName\ =\ book.\allowbreak{}author.\allowbreak{}name;\ const\ born\ =\ book.\allowbreak{}author.\allowbreak{}born;\ const\ firstTag\ =\ book.\allowbreak{}tags{[}0{]\allowbreak{}};\ const\ otherTags\ =\ book.\allowbreak{}tags.\allowbreak{}slice(1)}
+
+\textbf{Output:}
+
+\begin{minted}{text}
+form 9: Sabahattin Ali 1907 novel [ 'classic', 'berlin' ]
+form 9 (author is only a path, not a variable): author is not defined
+form 9 (nested with default): nobody
+form 9 (nested without default): Cannot read properties of undefined (reading 'name')
+\end{minted}
+
+\textbf{Use it when:} you need one or two values deep inside a structure
+that you know is there (an API response, a config).
+
+\textbf{Watch out:} the middle names (\texttt{author:}, \texttt{tags:})
+are a path, not variables. If a middle object is missing, the whole line
+throws, so give the middle part a default
+(\texttt{=\ \{.\allowbreak{}.\allowbreak{}.\allowbreak{}\}}). Deep
+patterns are hard to read: two levels is my limit.
+
+\hypertarget{form-10-computed-key-const--key-value---t}{%
+\subsection{\texorpdfstring{Form 10: computed key,
+\texttt{const\ \{\ {[}key{]\allowbreak{}}:\ value\ \}\ =\ t}}{Form 10: computed key, }}\label{form-10-computed-key-const--key-value---t}}
+
+\textbf{Syntax:}
+\texttt{const\ \{\ {[}field{]\allowbreak{}}:\ value\ =\ \allowbreak{}\textquotesingle{}(none)\allowbreak{}\textquotesingle{}\ \}\ =\ book}
+
+\textbf{Example} (\texttt{js/\allowbreak{}objects.\allowbreak{}mjs}):
+
+\begin{minted}{js}
+function pick(obj, key) {
+  const { [key]: value } = obj
+  return value
+}
+for (const field of ['title', 'pages', 'year']) {
+  const { [field]: value = '(none)' } = book
+  console.log(`form 10 (${field}):`, value)
+}
+\end{minted}
+
+\textbf{Plain version:}
+\texttt{const\ value\ =\ obj{[}key{]\allowbreak{}}}
+
+\textbf{Output:}
+
+\begin{minted}{text}
+form 10: Kürk Mantolu Madonna 160
+form 10 (title): Kürk Mantolu Madonna
+form 10 (pages): 160
+form 10 (year): (none)
+\end{minted}
+
+\textbf{Use it when:} the field name is in a variable --- and especially
+together with rest:
+\texttt{const\ \{\ {[}key{]\allowbreak{}}:\ removed,\ .\allowbreak{}.\allowbreak{}.\allowbreak{}others\ \}\ =\ obj}
+removes a field whose name you only know at run time.
+
+\textbf{Watch out:} you \textbf{must} rename:
+\texttt{const\ \{\ {[}key{]\allowbreak{}}\ \}\ =\ obj} is a syntax
+error, because a computed key does not give the variable a name. In
+TypeScript, use \texttt{K\ extends\ keyof\ T} so the value type is
+\texttt{T{[}K{]\allowbreak{}}}
+(\texttt{ts/\allowbreak{}objects.\allowbreak{}ts}).
+
+\hypertarget{form-11-patterns-in-parameters-function-f-a--1-b--options--}{%
+\subsection{\texorpdfstring{Form 11: patterns in parameters,
+\texttt{function\ f(\{\ a\ =\ 1,\ b\ \}:\ Options\ =\ \{\})}}{Form 11: patterns in parameters, }}\label{form-11-patterns-in-parameters-function-f-a--1-b--options--}}
+
+\textbf{Syntax:}
+\texttt{function\ startTimer(\{\ subject,\ minutes\ =\ 25,\ breakMinutes\ =\ 5\ \}\ =\ \{\})}
+
+\textbf{Example} (\texttt{js/\allowbreak{}params.\allowbreak{}mjs}):
+
+\begin{minted}{js}
+function startTimer({ subject, minutes = 25, breakMinutes = 5 } = {}) {
+  return `${subject ?? 'nothing'}: ${minutes} min work, ${breakMinutes} min break`
+}
+startTimer({ subject: 'Calculus', minutes: 50 })
+startTimer()
+startTimer({ subject: 'OOP', minutes: null })
+function startTimerNoDefault({ subject }) { return subject }
+startTimerNoDefault() // in a try/catch
+const toMinutes = ([hours, minutes = 0]) => hours * 60 + minutes
+\end{minted}
+
+\textbf{Plain version:}
+
+\begin{minted}{js}
+function startTimer(options) {
+  if (options === undefined) options = {}
+  let minutes = options.minutes
+  if (minutes === undefined) minutes = 25
+  // ...
+}
+\end{minted}
+
+\textbf{Output:}
+
+\begin{minted}{text}
+form 11: Calculus: 50 min work, 5 min break
+form 11 (no argument): nothing: 25 min work, 5 min break
+form 11 (null minutes): OOP: null min work, 5 min break
+form 11 (no = {}): Cannot destructure property 'subject' of 'undefined' as it is undefined.
+form 11b: 90 120
+\end{minted}
+
+\textbf{Use it when:} a function has more than two or three options ---
+the caller writes names, not positions, and can leave any of them out.
+Every React component with \texttt{(\{\ title,\ children\ \})} is this
+form.
+
+\textbf{Watch out:} there are two levels of defaults:
+\texttt{minutes\ =\ 25} is for a missing field, and the \texttt{=\ \{\}}
+at the end is for a missing \textbf{argument}. Without \texttt{=\ \{\}},
+calling with no argument throws. In TypeScript the order is
+\texttt{pattern\ :\ Type\ =\ default}.
+
+\hypertarget{form-12-patterns-in-loops-for-const-k-v-of-objectentrieso}{%
+\subsection{\texorpdfstring{Form 12: patterns in loops,
+\texttt{for\ (const\ {[}k,\ v{]\allowbreak{}}\ of\ Object.\allowbreak{}entries(o))}}{Form 12: patterns in loops, }}\label{form-12-patterns-in-loops-for-const-k-v-of-objectentrieso}}
+
+\textbf{Syntax:}
+\texttt{for\ (const\ {[}course,\ hours{]\allowbreak{}}\ of\ Object.\allowbreak{}entries(hoursPerCourse))}
+
+\textbf{Example} (\texttt{js/\allowbreak{}params.\allowbreak{}mjs}):
+
+\begin{minted}{js}
+const hoursPerCourse = { Calculus: 4, OOP: 3, 'Web Programming': 3 }
+for (const [course, hours] of Object.entries(hoursPerCourse)) console.log(course, hours)
+const roomOf = new Map([['Monday', 'A-204'], ['Wednesday', 'Lab 3']])
+for (const [day, room] of roomOf) console.log(day, room)
+for (const { course, day } of sessions) console.log(day, course)
+sessions.map(({ course }) => course)
+for (const [i, { course }] of sessions.entries()) console.log(i, course)
+\end{minted}
+
+\textbf{Plain version:}
+\texttt{for\ (const\ entry\ of\ Object.\allowbreak{}entries(o))\ \{\ const\ k\ =\ entry{[}0{]\allowbreak{}};\ const\ v\ =\ entry{[}1{]\allowbreak{}}\ \}}
+
+\textbf{Output:}
+
+\begin{minted}{text}
+form 12 (object): Calculus 4
+form 12 (object): OOP 3
+form 12 (object): Web Programming 3
+form 12 (Map): Monday A-204
+form 12 (Map): Wednesday Lab 3
+form 12 (objects): Monday OOP
+form 12 (objects): Tuesday Calculus
+form 12 (map): [ 'OOP', 'Calculus' ]
+form 12 (index): 0 OOP
+form 12 (index): 1 Calculus
+\end{minted}
+
+\textbf{Use it when:} looping over key/value pairs. A \texttt{Map}
+already gives \texttt{{[}key,\ value{]\allowbreak{}}} pairs, so no
+\texttt{.\allowbreak{}entries()} is needed; an object needs
+\texttt{Object.\allowbreak{}entries}.
+
+\textbf{Watch out:} a new variable is created for every round, so
+\texttt{const} is fine. The pattern is an \textbf{array} pattern for
+entries (\texttt{{[}k,\ v{]\allowbreak{}}}) and an \textbf{object}
+pattern for arrays of objects (\texttt{\{\ course\ \}}) --- mixing them
+up gives \texttt{undefined} or a ``not iterable'' error.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{pitfalls}{%
+\section{Pitfalls}\label{pitfalls}}
+
+All output from \texttt{js/\allowbreak{}pitfalls.\allowbreak{}mjs}.
+
+\textbf{1. Destructuring \texttt{undefined} or \texttt{null} throws.}
+
+\begin{minted}{js}
+const { title } = value // value is undefined, then null
+const { title: t1 } = {}
+const { title: t2 } = 42
+\end{minted}
+
+\begin{minted}{text}
+pitfall 1: TypeError - Cannot destructure property 'title' of 'value' as it is undefined.
+pitfall 1: TypeError - Cannot destructure property 'title' of 'value' as it is null.
+pitfall 1 ({} and 42 are fine): undefined undefined
+\end{minted}
+
+\emph{Why:} an object pattern reads properties from the value, and
+\texttt{undefined}/\texttt{null} are the only two values that cannot
+have properties (even \texttt{42} is boxed into a \texttt{Number} object
+that just has no \texttt{title}).
+
+\textbf{2. A default works for \texttt{undefined}, not for
+\texttt{null}.}
+
+\begin{minted}{js}
+const fromApi = { volume: null, theme: undefined }
+const { volume = 50, theme = 'light' } = fromApi
+const safeVolume = fromApi.volume ?? 50
+\end{minted}
+
+\begin{minted}{text}
+pitfall 2: null light
+pitfall 2 (fix with ??): 50
+\end{minted}
+
+\emph{Why:} the specification checks \texttt{value\ ===\ undefined}
+before using the default; \texttt{null} means ``there is a value, and it
+is empty'', so it is kept. JSON from a server often has \texttt{null},
+so use \texttt{??} after the pattern when \texttt{null} should also mean
+``use the default''.
+
+\textbf{3. Assignment without \texttt{const}/\texttt{let} needs
+parentheses.}
+
+\begin{minted}{js}
+let city, district
+;({ city, district } = { city: 'İstanbul', district: 'Fatih' })
+eval("let a; { a } = { a: 1 }")
+\end{minted}
+
+\begin{minted}{text}
+pitfall 3: İstanbul Fatih
+pitfall 3 (without parentheses): SyntaxError - Unexpected token '='
+\end{minted}
+
+\emph{Why:} a statement that starts with \texttt{\{} is read as a
+\textbf{block}, so \texttt{\{\ a\ \}} is a block with the expression
+\texttt{a} in it, and then \texttt{=\ \{\ a:\ 1\ \}} makes no sense. The
+parentheses force it to be an expression.
+
+\textbf{4. It copies references, not deep copies.}
+
+\begin{minted}{js}
+const original = { name: 'Notebook', owner: { name: 'Esma' } }
+const { owner, ...rest } = original
+owner.name = 'Changed'
+rest.name = 'Changed too'
+console.log('pitfall 4:', original.owner.name, original.name)
+\end{minted}
+
+\begin{minted}{text}
+pitfall 4: Changed Notebook
+\end{minted}
+
+\emph{Why:} destructuring copies what is in each property; for an object
+that is a reference to the same object. \texttt{rest} is a new top-level
+object (so \texttt{rest.\allowbreak{}name} is separate), but
+\texttt{owner} points to the very same inner object as
+\texttt{original.\allowbreak{}owner}.
+
+\textbf{5. Order matters in arrays, not in objects.}
+
+\begin{minted}{js}
+const { artist, title } = { title: 'Dönence', artist: 'Barış Manço' }
+const [artist2, title2] = ['Dönence', 'Barış Manço']
+\end{minted}
+
+\begin{minted}{text}
+pitfall 5 (object): Barış Manço / Dönence
+pitfall 5 (array): Dönence / Barış Manço | wrong names: Dönence / Barış Manço
+\end{minted}
+
+\emph{Why:} an object pattern matches by \textbf{name}, an array pattern
+by \textbf{position}. Giving array variables ``good'' names does not
+help: \texttt{artist2} holds the title, and nothing warns me.
+
+\textbf{6. An array pattern needs an iterable, not just something
+array-like.}
+
+\begin{minted}{js}
+const [first] = { 0: 'a', length: 1 }
+\end{minted}
+
+\begin{minted}{text}
+pitfall 6: TypeError - {(intermediate value)(intermediate value)} is not iterable
+\end{minted}
+
+\emph{Why:} an array pattern does not use \texttt{{[}0{]\allowbreak{}}};
+it calls the value's \texttt{Symbol.\allowbreak{}iterator} and asks for
+items one by one. A plain object has no iterator, even if it has
+\texttt{0} and \texttt{length}.
+
+\textbf{7. A line that starts with \texttt{{[}} and no semicolon before
+it.}
+
+\begin{minted}{js}
+eval('let m = 1\nlet n = 2\nconst total = m + n\n[m, n] = [n, m]')
+\end{minted}
+
+\begin{minted}{text}
+pitfall 7 (without the ;): SyntaxError - Invalid left-hand side in assignment
+\end{minted}
+
+\emph{Why:} automatic semicolon insertion does not insert one before
+\texttt{{[}}, so the code is read as
+\texttt{const\ total\ =\ m\ +\ n{[}m,\ n{]\allowbreak{}}\ =\ {[}n,\ m{]\allowbreak{}}}
+--- indexing into \texttt{n}. That is why form 3 starts with \texttt{;}.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{props-and-children}{%
+\section{Props and children}\label{props-and-children}}
+
+All rendering is done with \texttt{renderToStaticMarkup} in
+\texttt{js/\allowbreak{}props.\allowbreak{}jsx} (and typed again in
+\texttt{ts/\allowbreak{}props.\allowbreak{}tsx}). Output is copied from
+\texttt{output.\allowbreak{}txt}; React warnings are from
+\texttt{output-stderr.\allowbreak{}txt}.
+
+\hypertarget{p1-props-is-one-object}{%
+\subsection{P1: props is one object}\label{p1-props-is-one-object}}
+
+\begin{minted}{jsx}
+function CourseCardA(props) {
+  console.log('P1 props object:', props)
+  return <section><h2>{props.title}</h2>{props.children}</section>
+}
+function CourseCardB({ title, children }) {
+  return <section><h2>{title}</h2>{children}</section>
+}
+function CourseCardC(props) {
+  const { title, children } = props
+  return <section><h2>{title}</h2>{children}</section>
+}
+\end{minted}
+
+\begin{minted}{text}
+P1 props object: { title: 'SEN0415', children: 'Advanced Web Programming' }
+P1 A: <section><h2>SEN0415</h2>Advanced Web Programming</section>
+P1 B: <section><h2>SEN0415</h2>Advanced Web Programming</section>
+P1 C: <section><h2>SEN0415</h2>Advanced Web Programming</section>
+\end{minted}
+
+React calls the component with \textbf{one} argument.
+\texttt{CourseCardB} is \textbf{form 11} (a pattern in the parameter)
+whose pattern is \textbf{form 5} (properties by name).
+\texttt{CourseCardC} is the same thing in two steps. The log shows that
+\texttt{children} sits in the same object as \texttt{title}.
+
+\hypertarget{p2-children-is-only-a-prop}{%
+\subsection{P2: children is only a
+prop}\label{p2-children-is-only-a-prop}}
+
+\begin{minted}{jsx}
+<CourseCardB title="OOP">C++ labs</CourseCardB>
+<CourseCardB title="OOP" children="C++ labs" />
+<CourseCardB title="OOP" children="from attribute">from tags</CourseCardB>
+const element = <CourseCardB title="OOP">C++ labs</CourseCardB>
+console.log('P2 element.props:', element.props)
+\end{minted}
+
+\begin{minted}{text}
+P2 between tags : <section><h2>OOP</h2>C++ labs</section>
+P2 as attribute : <section><h2>OOP</h2>C++ labs</section>
+P2 both         : <section><h2>OOP</h2>from tags</section>
+P2 element.props: { title: 'OOP', children: 'C++ labs' }
+\end{minted}
+
+The content between the tags is just put into the props object under the
+name \texttt{children}. When both are given, the content between the
+tags wins: JSX builds the object with the attributes first and
+\texttt{children} last, so the later one overwrites. TypeScript refuses
+this (E10:
+\texttt{\allowbreak{}\textquotesingle{}children\allowbreak{}\textquotesingle{}\ are\ specified\ twice}).
+
+\hypertarget{p3-what-children-can-be}{%
+\subsection{P3: what children can be}\label{p3-what-children-can-be}}
+
+\begin{minted}{jsx}
+function Box({ children }) { return <div>[{children}]</div> }
+\end{minted}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3069}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3069}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3562}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+children
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+rendered
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+note
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\texttt{Calculus} (string) &
+\texttt{\textless{}\allowbreak{}div\textgreater{}\allowbreak{}{[}Calculus{]\allowbreak{}}\textless{}\allowbreak{}/\allowbreak{}div\textgreater{}\allowbreak{}}
+& \\
+\texttt{\{4\}} &
+\texttt{\textless{}\allowbreak{}div\textgreater{}\allowbreak{}{[}4{]\allowbreak{}}\textless{}\allowbreak{}/\allowbreak{}div\textgreater{}\allowbreak{}}
+& \\
+\texttt{\{0\}} &
+\texttt{\textless{}\allowbreak{}div\textgreater{}\allowbreak{}{[}0{]\allowbreak{}}\textless{}\allowbreak{}/\allowbreak{}div\textgreater{}\allowbreak{}}
+& \textbf{0 is shown}, unlike \texttt{false} \\
+\texttt{\textless{}\allowbreak{}b\textgreater{}\allowbreak{}OOP\textless{}\allowbreak{}/\allowbreak{}b\textgreater{}\allowbreak{}}
+&
+\texttt{\textless{}\allowbreak{}div\textgreater{}\allowbreak{}{[}\textless{}\allowbreak{}b\textgreater{}\allowbreak{}OOP\textless{}\allowbreak{}/\allowbreak{}b\textgreater{}\allowbreak{}{]\allowbreak{}}\textless{}\allowbreak{}/\allowbreak{}div\textgreater{}\allowbreak{}}
+& one element \\
+\texttt{\textless{}\allowbreak{}b\textgreater{}\allowbreak{}OOP\textless{}\allowbreak{}/\allowbreak{}b\textgreater{}\allowbreak{}\textless{}\allowbreak{}i\textgreater{}\allowbreak{}Calculus\textless{}\allowbreak{}/\allowbreak{}i\textgreater{}\allowbreak{}text}
+&
+\texttt{\textless{}\allowbreak{}div\textgreater{}\allowbreak{}{[}\textless{}\allowbreak{}b\textgreater{}\allowbreak{}OOP\textless{}\allowbreak{}/\allowbreak{}b\textgreater{}\allowbreak{}\textless{}\allowbreak{}i\textgreater{}\allowbreak{}Calculus\textless{}\allowbreak{}/\allowbreak{}i\textgreater{}\allowbreak{}text{]\allowbreak{}}\textless{}\allowbreak{}/\allowbreak{}div\textgreater{}\allowbreak{}}
+& several → an array \\
+\texttt{\{{[}\allowbreak{}\textquotesingle{}a\allowbreak{}\textquotesingle{},\allowbreak{}\textquotesingle{}b\allowbreak{}\textquotesingle{},\allowbreak{}\textquotesingle{}c\allowbreak{}\textquotesingle{}{]\allowbreak{}}\}}
+&
+\texttt{\textless{}\allowbreak{}div\textgreater{}\allowbreak{}{[}abc{]\allowbreak{}}\textless{}\allowbreak{}/\allowbreak{}div\textgreater{}\allowbreak{}}
+& arrays are flattened \\
+\texttt{\{undefined\}}, \texttt{\{null\}}, \texttt{\{false\}},
+\texttt{\{true\}},
+\texttt{\{\allowbreak{}\textquotesingle{}\allowbreak{}\textquotesingle{}\}},
+none &
+\texttt{\textless{}\allowbreak{}div\textgreater{}\allowbreak{}{[}{]\allowbreak{}}\textless{}\allowbreak{}/\allowbreak{}div\textgreater{}\allowbreak{}}
+& nothing appears \\
+\texttt{\{()\ =\textgreater{}\allowbreak{}\ \allowbreak{}\textquotesingle{}hello\allowbreak{}\textquotesingle{}\}}
+&
+\texttt{\textless{}\allowbreak{}div\textgreater{}\allowbreak{}{[}{]\allowbreak{}}\textless{}\allowbreak{}/\allowbreak{}div\textgreater{}\allowbreak{}}
++ warning &
+\texttt{Functions\ are\ not\ valid\ as\ a\ React\ child.\allowbreak{}\ .\allowbreak{}.\allowbreak{}.\allowbreak{}} \\
+\texttt{\{\{\ course:\ \allowbreak{}\textquotesingle{}OOP\allowbreak{}\textquotesingle{}\ \}\}}
+& \textbf{throws} &
+\texttt{Objects\ are\ not\ valid\ as\ a\ React\ child\ (found:\ object\ with\ keys\ \{course\}).\allowbreak{}\ .\allowbreak{}.\allowbreak{}.\allowbreak{}} \\
+\end{longtable}
+
+A function is only useful as children if the component \textbf{calls}
+it:
+
+\begin{minted}{jsx}
+function Countdown({ days, children }) { return <p>{children(days)}</p> }
+<Countdown days={12}>{(d) => `Final in ${d} days`}</Countdown>
+\end{minted}
+
+\begin{minted}{text}
+P3 function called: <p>Final in 12 days</p>
+\end{minted}
+
+\texttt{props.\allowbreak{}children} is a single value when there is one
+child and an \textbf{array} when there are several:
+
+\begin{minted}{text}
+P3 count one: <span>object</span>
+P3 count two: <span>array of 2</span>
+P3 count txt: <span>string</span>
+\end{minted}
+
+So
+\texttt{\{count\ \&\&\ \textless{}\allowbreak{}Badge\ /\allowbreak{}\textgreater{}\allowbreak{}\}}
+with \texttt{count\ =\ 0} would print \texttt{0} on the screen; that is
+why \texttt{0} is the dangerous one in the table.
+
+\hypertarget{p4-separating-children-from-the-other-props-and-the-order-of-spread}{%
+\subsection{P4: separating children from the other props, and the order
+of
+spread}\label{p4-separating-children-from-the-other-props-and-the-order-of-spread}}
+
+\begin{minted}{jsx}
+function Notice({ title, children, ...rest }) {
+  console.log('P4 rest has:', Object.keys(rest))
+  return <section {...rest}><h3>{title}</h3>{children}</section>
+}
+<Notice title="Exam" id="midterm" className="warn" data-week="8">Room A-204</Notice>
+\end{minted}
+
+\begin{minted}{text}
+P4 rest has: [ 'id', 'className', 'data-week' ]
+P4 rest: <section id="midterm" class="warn" data-week="8"><h3>Exam</h3>Room A-204</section>
+\end{minted}
+
+Here three forms work together: form 11 (pattern in the parameter), form
+5 (\texttt{title}, \texttt{children} by name) and form 8
+(\texttt{.\allowbreak{}.\allowbreak{}.\allowbreak{}rest} collects the
+remaining props). Then
+\texttt{\{.\allowbreak{}.\allowbreak{}.\allowbreak{}rest\}} is a
+\textbf{spread} that puts them back as attributes on the
+\texttt{\textless{}\allowbreak{}section\textgreater{}\allowbreak{}}.
+
+\textbf{Which one wins} --- the one written later:
+
+\begin{minted}{jsx}
+<section {...rest} className="notice">   // explicit AFTER spread
+<section className="notice" {...rest}>   // explicit BEFORE spread
+\end{minted}
+
+\begin{minted}{text}
+P4 after  spread: <section class="notice">x</section>       (caller's "mine" lost)
+P4 before spread: <section class="mine">x</section>         (caller's "mine" wins)
+P4 before, none : <section class="notice">x</section>       (default when caller gives none)
+\end{minted}
+
+Before = a default the caller may override; after = a value the caller
+cannot change.
+
+Two things that went to the DOM by accident when I did \textbf{not} take
+them out of \texttt{rest}:
+
+\begin{minted}{text}
+P4 leaky: <section title="Exam">x</section>
+warning: Received `true` for a non-boolean attribute `urgent`.
+\end{minted}
+
+\texttt{title} is also a real HTML attribute (tooltip), so it silently
+appeared on the section.
+
+\texttt{key} never reaches the component:
+
+\begin{minted}{text}
+P4 key: <span>key is undefined; props keys: title</span>
+warning: ShowKey: `key` is not a prop. Trying to access it will result in `undefined` being returned. ...
+\end{minted}
+
+\hypertarget{p5-props-or-children}{%
+\subsection{P5: props or children?}\label{p5-props-or-children}}
+
+\begin{minted}{jsx}
+function PanelWithProps({ header, footer, body }) {
+  return <article><header>{header}</header><main>{body}</main><footer>{footer}</footer></article>
+}
+function PanelWithChildren({ children }) {
+  return <article>{children}</article>
+}
+\end{minted}
+
+\begin{minted}{text}
+P5 props   : <article><header><h2>Week 8</h2></header><main><p>Midterm</p></main><footer><small>İKÜ</small></footer></article>
+P5 children: <article><header><h2>Week 8</h2></header><main><p>Midterm</p></main><footer><small>İKÜ</small></footer></article>
+P5 children, wrong order: <article><footer><small>İKÜ</small></footer><header><h2>Week 8</h2></header></article>
+\end{minted}
+
+The output is the same, but who decides the structure is different:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Named props} (\texttt{header}, \texttt{footer}): the
+  \textbf{component} decides where each part goes and can wrap it. The
+  caller cannot put the footer on top, and in TypeScript can be forced
+  to give a header. I choose this when the layout has fixed ``slots''.
+\item
+  \textbf{children only}: the \textbf{caller} decides everything.
+  Flexible, but the component cannot enforce anything --- the ``wrong
+  order'' output shows that. I choose this for wrappers (a card, a
+  modal, a layout) that should not care what is inside.
+\end{itemize}
+
+Often both: named props for the fixed slots, \texttt{children} for the
+main content.
+
+\hypertarget{p6-defaults}{%
+\subsection{P6: defaults}\label{p6-defaults}}
+
+\begin{minted}{jsx}
+function Badge({ label = 'no label', count = 0 }) { return <span>{label}: {count}</span> }
+function Frame({ children = <em>(empty)</em> }) { return <div>{children}</div> }
+\end{minted}
+
+\begin{minted}{text}
+P6 missing  : <span>no label: 0</span>
+P6 undefined: <span>no label: 0</span>
+P6 null     : <span>: </span>
+P6 given    : <span>Unread: 3</span>
+P6 children default, none: <div><em>(empty)</em></div>
+P6 children default, null: <div></div>
+\end{minted}
+
+This is form 7. A missing prop and \texttt{label=\{undefined\}} are the
+same thing (the default is used). \texttt{label=\{null\}} is a value, so
+the default is \textbf{not} used, and React renders \texttt{null} as
+nothing --- the badge shows an empty \texttt{:\ }. In
+\texttt{ts/\allowbreak{}props.\allowbreak{}tsx} I allowed
+\texttt{count:\ number\ \textbar{}\ null} in the type and handled the
+\texttt{null} with \texttt{??}.
+
+\hypertarget{p7-types}{%
+\subsection{P7: types}\label{p7-types}}
+
+\begin{minted}{tsx}
+type CardOwn = { title: string; children?: ReactNode }       // by hand
+type CardHelper = PropsWithChildren<{ title: string }>       // same type, made for me
+type SubmitButtonProps = ComponentProps<'button'> & { busy?: boolean }
+\end{minted}
+
+\begin{minted}{text}
+P7 same shape: {"title":"x","children":"y"}
+P7 button: <button type="submit" title="save">Save task</button>
+P7 busy  : <button type="submit" disabled="">Saving…</button>
+P7 required children: <p>must be here</p>
+\end{minted}
+
+What each allows, and what the compiler rejects
+(\texttt{errors/\allowbreak{}props-errors.\allowbreak{}tsx}, real
+messages from \texttt{npm\ run\ errors}):
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3151}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.2560}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3989}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Type
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Allows
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Rejects (real error)
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+no \texttt{children} in the type & only attributes & E9
+\texttt{Property\ \allowbreak{}\textquotesingle{}children\allowbreak{}\textquotesingle{}\ does\ not\ exist\ on\ type\ \allowbreak{}\textquotesingle{}IntrinsicAttributes\ \&\ \{\ title:\ string;\ \}\allowbreak{}\textquotesingle{}.\allowbreak{}} \\
+\texttt{children?:\ ReactNode} / \texttt{PropsWithChildren} & string,
+number, element, array, \texttt{null}, \texttt{undefined},
+\texttt{boolean} & E11 object:
+\texttt{\allowbreak{}\textquotesingle{}course\allowbreak{}\textquotesingle{}\ does\ not\ exist\ in\ type\ \allowbreak{}\textquotesingle{}ReactElement\textless{}\allowbreak{}.\allowbreak{}.\allowbreak{}.\allowbreak{}\textgreater{}\allowbreak{}\ \textbar{}\ Iterable\textless{}\allowbreak{}ReactNode\textgreater{}\allowbreak{}\ \textbar{}\ .\allowbreak{}.\allowbreak{}.\allowbreak{}\allowbreak{}\textquotesingle{}};
+E12 function:
+\texttt{Type\ \allowbreak{}\textquotesingle{}()\ =\textgreater{}\allowbreak{}\ string\allowbreak{}\textquotesingle{}\ is\ not\ assignable\ to\ type\ \allowbreak{}\textquotesingle{}ReactNode\allowbreak{}\textquotesingle{}.\allowbreak{}} \\
+\texttt{children:\ ReactNode} (required) & same & E13
+\texttt{Property\ \allowbreak{}\textquotesingle{}children\allowbreak{}\textquotesingle{}\ is\ missing\ in\ type\ \allowbreak{}\textquotesingle{}\{\}\allowbreak{}\textquotesingle{}\ but\ required\ in\ type\ \allowbreak{}\textquotesingle{}\{\ children:\ ReactNode;\ \}\allowbreak{}\textquotesingle{}.\allowbreak{}} \\
+\texttt{children:\ (d:\ number)\ =\textgreater{}\allowbreak{}\ ReactNode}
+& a function only (render prop) & anything that is not that function \\
+\texttt{ComponentProps\textless{}\allowbreak{}\allowbreak{}\textquotesingle{}button\allowbreak{}\textquotesingle{}\textgreater{}\allowbreak{}}
+& every real
+\texttt{\textless{}\allowbreak{}button\textgreater{}\allowbreak{}}
+attribute, with its real values (\texttt{onClick}, \texttt{disabled},
+\texttt{type}) & E14
+\texttt{Type\ \allowbreak{}\textquotesingle{}"banana"\allowbreak{}\textquotesingle{}\ is\ not\ assignable\ to\ type\ \allowbreak{}\textquotesingle{}"button"\ \textbar{}\ "submit"\ \textbar{}\ "reset"\ \textbar{}\ undefined\allowbreak{}\textquotesingle{}.\allowbreak{}};
+E15
+\texttt{Property\ \allowbreak{}\textquotesingle{}href\allowbreak{}\textquotesingle{}\ does\ not\ exist\ .\allowbreak{}.\allowbreak{}.\allowbreak{}\ Did\ you\ mean\ \allowbreak{}\textquotesingle{}ref\allowbreak{}\textquotesingle{}?} \\
+any props type & --- & E16
+\texttt{Property\ \allowbreak{}\textquotesingle{}key\allowbreak{}\textquotesingle{}\ does\ not\ exist\ on\ type\ \allowbreak{}\textquotesingle{}\{\ title:\ string;\ \}\allowbreak{}\textquotesingle{}.\allowbreak{}} \\
+\end{longtable}
+
+\texttt{ComponentProps\textless{}\allowbreak{}\allowbreak{}\textquotesingle{}button\allowbreak{}\textquotesingle{}\textgreater{}\allowbreak{}}
+is what makes \texttt{.\allowbreak{}.\allowbreak{}.\allowbreak{}rest}
+safe: TypeScript knows that everything in \texttt{rest} is a valid
+\texttt{\textless{}\allowbreak{}button\textgreater{}\allowbreak{}}
+attribute.
+
+\hypertarget{experiment-a-component-that-changes-its-props}{%
+\subsection{Experiment: a component that changes its
+props}\label{experiment-a-component-that-changes-its-props}}
+
+\begin{minted}{jsx}
+function Mutator(props) { props.title = 'changed'; return <span>{props.title}</span> }
+function MutateLocal({ title }) { title = title.toUpperCase(); return <span>{title}</span> }
+\end{minted}
+
+\begin{minted}{text}
+mutate props: THROWS TypeError - Cannot assign to read only property 'title' of object '#<Object>'
+mutate local: <span>ORIGINAL</span>
+\end{minted}
+
+React (development build) freezes the props object. After destructuring,
+\texttt{title} is my own local variable, so changing it is allowed and
+does not touch the props.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{javascript-vs-typescript}{%
+\section{JavaScript vs TypeScript}\label{javascript-vs-typescript}}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.1423}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.1138}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2419}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.4721}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Form / topic
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Same in TS
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+What I must add
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Error when I get it wrong
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+1 \texttt{const\ {[}x,\ y{]\allowbreak{}}\ =\ f()} & the pattern & a
+tuple return type \texttt{{[}number,\ number{]\allowbreak{}}} & without
+it the type is \texttt{(string\ \textbar{}\ number){[}{]\allowbreak{}}}
+(T2); extra variable: E8
+\texttt{Tuple\ type\ \allowbreak{}\textquotesingle{}{[}string,\ number{]\allowbreak{}}\allowbreak{}\textquotesingle{}\ of\ length\ \allowbreak{}\textquotesingle{}2\allowbreak{}\textquotesingle{}\ has\ no\ element\ at\ index\ \allowbreak{}\textquotesingle{}2\allowbreak{}\textquotesingle{}.\allowbreak{}} \\
+2
+\texttt{{[},\ second,\ .\allowbreak{}.\allowbreak{}.\allowbreak{}rest{]\allowbreak{}}}
+& the pattern & nothing; \texttt{second} is
+\texttt{string\ \textbar{}\ undefined} for
+\texttt{string{[}{]\allowbreak{}}} &
+\texttt{\allowbreak{}\textquotesingle{}second\allowbreak{}\textquotesingle{}\ is\ possibly\ \allowbreak{}\textquotesingle{}undefined\allowbreak{}\textquotesingle{}.\allowbreak{}}
+when used directly \\
+3 swap & the pattern & \texttt{let} variables of the same type & on an
+\texttt{as\ const} array: E7
+\texttt{Cannot\ assign\ to\ \allowbreak{}\textquotesingle{}0\allowbreak{}\textquotesingle{}\ because\ it\ is\ a\ read-only\ property.\allowbreak{}} \\
+4 array defaults & the pattern & nothing --- the default removes
+\texttt{undefined} & --- \\
+5 \texttt{\{\ a,\ b\ \}\ =\ t} & the pattern & a type for \texttt{t}
+(the variables get theirs from it) & a name not in the type: E6
+\texttt{Property\ \allowbreak{}\textquotesingle{}teacher\allowbreak{}\textquotesingle{}\ does\ not\ exist\ on\ type\ \allowbreak{}\textquotesingle{}Course\allowbreak{}\textquotesingle{}.\allowbreak{}} \\
+6 rename & the pattern & nothing & writing a type there: E1
+\texttt{Binding\ element\ \allowbreak{}\textquotesingle{}string\allowbreak{}\textquotesingle{}\ implicitly\ has\ an\ \allowbreak{}\textquotesingle{}any\allowbreak{}\textquotesingle{}\ type.\allowbreak{}} \\
+7 object defaults & the pattern & an optional field \texttt{status?:} in
+the type & optional without default: E3
+\texttt{\allowbreak{}\textquotesingle{}theme\allowbreak{}\textquotesingle{}\ is\ possibly\ \allowbreak{}\textquotesingle{}undefined\allowbreak{}\textquotesingle{}.\allowbreak{}} \\
+8 rest & the pattern & nothing --- the rest type is computed
+(\texttt{Omit\textless{}\allowbreak{}Book,\allowbreak{}\textquotesingle{}id\allowbreak{}\textquotesingle{}\textgreater{}\allowbreak{}})
+& --- \\
+9 nested & the pattern & a default for an optional middle object & E4
+\texttt{Property\ \allowbreak{}\textquotesingle{}name\allowbreak{}\textquotesingle{}\ does\ not\ exist\ on\ type\ \allowbreak{}\textquotesingle{}\{\ name:\ string;\ \}\ \textbar{}\ undefined\allowbreak{}\textquotesingle{}.\allowbreak{}} \\
+10 computed key & the pattern & \texttt{K\ extends\ keyof\ T} to get
+\texttt{T{[}K{]\allowbreak{}}} & --- \\
+11 parameters & the pattern & \texttt{:\ Type} \textbf{after} the whole
+pattern, then \texttt{=\ \{\}} & no \texttt{=\ \{\}}, call with no
+argument: E5
+\texttt{Expected\ 1\ arguments,\ but\ got\ 0.\allowbreak{}} \\
+12 loops & the pattern & types on the object/Map
+(\texttt{Map\textless{}\allowbreak{}string,\ string\textgreater{}\allowbreak{}})
+& --- \\
+T3 \texttt{{[}first{]\allowbreak{}}\ =\ items} & the pattern & a check
+or a default & E2
+\texttt{\allowbreak{}\textquotesingle{}firstCourse\allowbreak{}\textquotesingle{}\ is\ possibly\ \allowbreak{}\textquotesingle{}undefined\allowbreak{}\textquotesingle{}.\allowbreak{}} \\
+props & \texttt{(\{\ title,\ children\ \})} & a props type with
+\texttt{children?:\ ReactNode} & E9, E10
+\texttt{\allowbreak{}\textquotesingle{}children\allowbreak{}\textquotesingle{}\ are\ specified\ twice.\allowbreak{}} \\
+\end{longtable}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{typescript-topics-t1t5}{%
+\section{TypeScript topics (T1--T5)}\label{typescript-topics-t1t5}}
+
+From \texttt{ts/\allowbreak{}types.\allowbreak{}ts}.
+
+\textbf{T1 --- a colon in a pattern is a rename.}
+
+\begin{minted}{ts}
+const { title: string } = song           // a variable named "string"!
+function describe({ title, seconds }: { title: string; seconds: number }) { ... }
+\end{minted}
+
+\begin{minted}{text}
+T1 (rename, not a type): Dönence
+T1 (type after the pattern): Dönence (7 min)
+\end{minted}
+
+In a parameter, \texttt{(\{\ title:\ string,\ seconds:\ number\ \})}
+compiles to two variables called \texttt{string} and \texttt{number} of
+type \texttt{any}, so strict mode rejects it (E1:
+\texttt{Binding\ element\ \allowbreak{}\textquotesingle{}string\allowbreak{}\textquotesingle{}\ implicitly\ has\ an\ \allowbreak{}\textquotesingle{}any\allowbreak{}\textquotesingle{}\ type.\allowbreak{}}).
+The type always goes after the closing \texttt{\}}.
+
+\textbf{T2 --- tuples and \texttt{as\ const}.}
+
+\begin{minted}{ts}
+function splitTime(text: string): [number, string] { ... }
+const loose = ['OOP', 3]            // (string | number)[]
+const fixed = ['OOP', 3] as const   // readonly ['OOP', 3]
+\end{minted}
+
+\begin{minted}{text}
+T2 tuple: 15 030
+T2 loose: string number
+T2 as const: oop 6
+T2 inferred array: a
+\end{minted}
+
+Without \texttt{as\ const} both \texttt{looseName} and
+\texttt{looseHours} have type
+\texttt{string\ \textbar{}\ number\ \textbar{}\ undefined}, so I could
+not call \texttt{.\allowbreak{}toLowerCase()} or multiply. With
+\texttt{as\ const} each position has its own literal type, and the array
+is readonly (E7). A function without a tuple return type returns an
+array type, not a tuple.
+
+\textbf{T3 --- \texttt{noUncheckedIndexedAccess}.}
+
+\begin{minted}{ts}
+const courses: string[] = ['Calculus', 'OOP']
+const [firstCourse] = courses                 // string | undefined
+const [firstOrDefault = 'none'] = courses     // string
+const pair: [string, string] = ['Calculus', 'OOP']
+const [tupleFirst] = pair                     // string
+\end{minted}
+
+\begin{minted}{text}
+T3 narrowed: CALCULUS
+T3 default: 8
+T3 really missing: undefined -> (handled)
+T3 tuple has no undefined: CALCULUS
+\end{minted}
+
+For \texttt{string{[}{]\allowbreak{}}} the compiler does not know the
+length, so position 0 may not exist. Three fixes: check
+(\texttt{if\ (x\ !==\ undefined)}), a default, or a tuple type when the
+length really is fixed.
+
+\textbf{T4 --- optional fields and defaults.}
+
+\begin{minted}{ts}
+type Settings = { theme?: 'light' | 'dark'; fontSize: number }
+const { theme } = settings                              // 'light' | 'dark' | undefined
+const { theme: themeWithDefault = 'light' } = settings  // 'light' | 'dark'
+\end{minted}
+
+\begin{minted}{text}
+T4: undefined light 14
+T4 in parameter: DARK 14px
+\end{minted}
+
+The \texttt{?} adds \texttt{undefined} to the type; a default takes it
+away again inside the function. The caller still sees the field as
+optional.
+
+\textbf{T5 --- one compile error.}
+
+\begin{minted}{ts}
+type Course = { code: string; credits: number }
+// @ts-expect-error Property 'teacher' does not exist on type 'Course'.
+const { teacher } = course
+\end{minted}
+
+\begin{minted}{text}
+T5 at run time it is just undefined: undefined
+T5 fixed: unknown
+\end{minted}
+
+The message (E6) is
+\texttt{Property\ \allowbreak{}\textquotesingle{}teacher\allowbreak{}\textquotesingle{}\ does\ not\ exist\ on\ type\ \allowbreak{}\textquotesingle{}Course\allowbreak{}\textquotesingle{}.\allowbreak{}}
+In JavaScript this is silently \texttt{undefined}. The fix: add
+\texttt{teacher?:\ string} to the type and give a default.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{bonus-1-latex}{%
+\section{Bonus 1: LaTeX}\label{bonus-1-latex}}
+
+Bonus 1: LaTeX
+
+The whole field guide is also a LaTeX document with its PDF, in the
+\texttt{latex/\allowbreak{}} folder:
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.4176}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.5524}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+File
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+What it is
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\texttt{latex/\allowbreak{}destructuring-guide.\allowbreak{}tex} & the
+LaTeX source of the guide \\
+\texttt{latex/\allowbreak{}destructuring-guide.\allowbreak{}pdf} & the
+compiled PDF (title page, linked contents, all sections) \\
+\texttt{latex/\allowbreak{}header.\allowbreak{}tex} & my preamble:
+minted code style, page header with my name, contents spacing \\
+\texttt{latex/\allowbreak{}metadata.\allowbreak{}yaml} & title, author,
+fonts, page size \\
+\texttt{latex/\allowbreak{}widths.\allowbreak{}lua},
+\texttt{latex/\allowbreak{}inline-code.\allowbreak{}lua},
+\texttt{latex/\allowbreak{}code-blocks.\allowbreak{}lua} & pandoc
+filters (table column widths, breakable inline code, code blocks as
+\texttt{minted}) \\
+\texttt{latex/\allowbreak{}build.\allowbreak{}sh} & the commands below
+in one script \\
+\end{longtable}
+
+The content is the guide itself, not a shorter copy: the
+\texttt{.\allowbreak{}tex} is produced from this
+\texttt{README.\allowbreak{}md} (everything from ``Bonuses claimed''
+on), so the twelve entries, the pitfalls, props and children, the
+JavaScript vs TypeScript table, the TypeScript topics, the bonus
+sections and the log are all in it.
+
+\textbf{Commands I used} (in the \texttt{latex/\allowbreak{}} folder;
+pandoc 3.1, TeX Live with XeLaTeX, minted 2.9 and Pygments 2.21):
+
+\begin{minted}{text}
+pandoc guide-body.md --metadata-file=metadata.yaml -f gfm+smart -t latex --standalone \
+  --toc --toc-depth=2 --number-sections --shift-heading-level-by=-1 \
+  --lua-filter widths.lua --lua-filter inline-code.lua --lua-filter code-blocks.lua \
+  -H header.tex -o destructuring-guide.tex
+latexmk -xelatex -shell-escape -interaction=nonstopmode -halt-on-error destructuring-guide.tex
+\end{minted}
+
+\texttt{guide-body.\allowbreak{}md} is \texttt{README.\allowbreak{}md}
+from ``Bonuses claimed'' on (the name and student number are on the
+title page instead). \texttt{-shell-escape} is needed because
+\texttt{minted} runs Pygments to colour the code.
+
+\textbf{How it is typeset:}
+
+\begin{itemize}
+\tightlist
+\item
+  Code blocks use the \textbf{minted} package (Pygments highlighting for
+  \texttt{js}, \texttt{jsx}, \texttt{ts}, \texttt{tsx}; program output
+  as plain text), all in the same style: small monospace, a grey rule on
+  the left, long lines wrapped with a ↪ mark.
+\item
+  Tables are real \texttt{longtable} tables with \texttt{booktabs}
+  rules. \texttt{widths.\allowbreak{}lua} gives each column a width from
+  its content, so no table runs off the page.
+\item
+  The contents page is generated by \texttt{-\/\allowbreak{}-toc} and
+  every entry is a link (\texttt{hyperref}), as are the URLs.
+\item
+  The result compiles with \textbf{no errors and no overfull boxes}
+  (checked in \texttt{destructuring-guide.\allowbreak{}log}): 19 pages,
+  A4.
+\end{itemize}
+
+\textbf{Why minted and not listings:} with XeLaTeX, \texttt{listings}
+put the Turkish letters ş, ı and ğ in the wrong place inside code
+(\texttt{\allowbreak{}\textquotesingle{}Beşiktaş\allowbreak{}\textquotesingle{}}
+came out as
+\texttt{\allowbreak{}\textquotesingle{}şşBeikta\allowbreak{}\textquotesingle{}}),
+because it does not handle characters above U+00FF. ö and ü were fine.
+\texttt{minted} passes the code to Pygments and prints it as it is, so
+\texttt{\allowbreak{}\textquotesingle{}Beşiktaş\allowbreak{}\textquotesingle{}}
+and
+\texttt{\allowbreak{}\textquotesingle{}Kadıköy\allowbreak{}\textquotesingle{}}
+are correct.
+
+\hypertarget{bonus-3-real-code}{%
+\section{Bonus 3: Real code}\label{bonus-3-real-code}}
+
+Bonus 3: Real code
+
+Sources:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Task Manager} from Assignment 3:
+  \url{https://github.com/eesmaeroz/assignment3}
+  (\texttt{src/\allowbreak{}}).
+\item
+  \textbf{esbuild 0.28.2}, installed in this project's
+  \texttt{node\_modules/\allowbreak{}esbuild} (it is the package whose
+  install script npm skipped, see log entry 2).
+\item
+  \textbf{shadcn/ui}, an open-source React component library:
+  \url{https://github.com/shadcn-ui/ui}, folder
+  \texttt{apps/\allowbreak{}v4/\allowbreak{}registry/\allowbreak{}new-york-v4/\allowbreak{}ui},
+  commit \texttt{e62c943}.
+\end{itemize}
+
+\hypertarget{case-1-const-state-dispatch--usereducer}{%
+\subsection{\texorpdfstring{Case 1:
+\texttt{const\ {[}state,\ dispatch{]\allowbreak{}}\ =\ useReducer(.\allowbreak{}.\allowbreak{}.\allowbreak{})}}{Case 1: }}\label{case-1-const-state-dispatch--usereducer}}
+
+\texttt{assignment3/\allowbreak{}src/\allowbreak{}App.\allowbreak{}tsx:69}
+
+\begin{minted}{ts}
+const [state, dispatch] = useReducer(taskReducer, initialState)
+\end{minted}
+
+\textbf{Form 1} (values by position from a function's tuple return).
+Without destructuring:
+
+\begin{minted}{ts}
+const pair = useReducer(taskReducer, initialState)
+const state = pair[0]
+const dispatch = pair[1]
+\end{minted}
+
+React returns a pair because the caller should choose the names. With an
+object (\texttt{\{\ state,\ dispatch\ \}}) every component would have to
+rename (form 6) to get a second reducer; with a tuple I just write other
+names in the brackets.
+
+\hypertarget{case-2-taskrow-task-onnext-ondelete--react-props}{%
+\subsection{\texorpdfstring{Case 2:
+\texttt{TaskRow(\{\ task,\ onNext,\ onDelete\ \})}, React
+props}{Case 2: , React props}}\label{case-2-taskrow-task-onnext-ondelete--react-props}}
+
+\texttt{assignment3/\allowbreak{}src/\allowbreak{}TaskRow.\allowbreak{}tsx:5}
+
+\begin{minted}{tsx}
+type TaskRowProps = { task: Task; onNext: () => void; onDelete: () => void }
+export default function TaskRow({ task, onNext, onDelete }: TaskRowProps) {
+\end{minted}
+
+\textbf{Form 11 with form 5 inside} (a pattern in the parameter,
+properties by name), and the type after the whole pattern (T1). Without
+destructuring:
+
+\begin{minted}{tsx}
+export default function TaskRow(props: TaskRowProps) {
+  const task = props.task
+  const onNext = props.onNext
+  const onDelete = props.onDelete
+\end{minted}
+
+\textbf{Props and children here:} \texttt{task}, \texttt{onNext} and
+\texttt{onDelete} are props (attributes in
+\texttt{\textless{}\allowbreak{}TaskRow\ task=\{t\}\ onNext=\{.\allowbreak{}.\allowbreak{}.\allowbreak{}\}\ onDelete=\{.\allowbreak{}.\allowbreak{}.\allowbreak{}\}\ /\allowbreak{}\textgreater{}\allowbreak{}}).
+There is \textbf{no children}: the type has no \texttt{children}, so
+\texttt{\textless{}\allowbreak{}TaskRow\ .\allowbreak{}.\allowbreak{}.\allowbreak{}\textgreater{}\allowbreak{}text\textless{}\allowbreak{}/\allowbreak{}TaskRow\textgreater{}\allowbreak{}}
+would be a compile error (like E9), and the row is always used as a
+self-closing tag.
+
+\hypertarget{case-3-filterbar-active-counts-dispatch-}{%
+\subsection{\texorpdfstring{Case 3:
+\texttt{FilterBar(\{\ active,\ counts,\ dispatch\ \})}}{Case 3: }}\label{case-3-filterbar-active-counts-dispatch-}}
+
+\texttt{assignment3/\allowbreak{}src/\allowbreak{}App.\allowbreak{}tsx:34}
+
+\begin{minted}{tsx}
+function FilterBar({ active, counts, dispatch }: FilterBarProps) {
+\end{minted}
+
+Again \textbf{form 11 + form 5}. All three are props, there is no
+children. \texttt{dispatch} is passed down from case 1, so the same
+function is taken out of a tuple in \texttt{App} (form 1) and out of a
+props object in \texttt{FilterBar} (form 5).
+
+\hypertarget{case-4-const--pkg-subpath-iswasm----in-esbuild}{%
+\subsection{\texorpdfstring{Case 4:
+\texttt{const\ \{\ pkg,\ subpath,\ isWASM\ \}\ =\ .\allowbreak{}.\allowbreak{}.\allowbreak{}}
+in
+esbuild}{Case 4:  in esbuild}}\label{case-4-const--pkg-subpath-iswasm----in-esbuild}}
+
+\texttt{node\_modules/\allowbreak{}esbuild/\allowbreak{}install.\allowbreak{}js:266}
+
+\begin{minted}{js}
+const { pkg, subpath, isWASM } = pkgAndSubpathForCurrentPlatform();
+\end{minted}
+
+\textbf{Form 5} on the return value of a function. Without
+destructuring:
+
+\begin{minted}{js}
+const result = pkgAndSubpathForCurrentPlatform();
+const pkg = result.pkg;
+const subpath = result.subpath;
+const isWASM = result.isWASM;
+\end{minted}
+
+This is the ``return several values'' idea of form 1, but with an
+object, because three values of different meaning are easy to mix up by
+position (pitfall 5). Here names are safer than positions.
+
+\hypertarget{case-5-let-major-minor--processversionsnodesplit-in-esbuild}{%
+\subsection{\texorpdfstring{Case 5:
+\texttt{let\ {[}major,\ minor{]\allowbreak{}}\ =\ process.\allowbreak{}versions.\allowbreak{}node.\allowbreak{}split(".\allowbreak{}")}
+in
+esbuild}{Case 5:  in esbuild}}\label{case-5-let-major-minor--processversionsnodesplit-in-esbuild}}
+
+\texttt{node\_modules/\allowbreak{}esbuild/\allowbreak{}lib/\allowbreak{}main.\allowbreak{}js:2093}
+
+\begin{minted}{js}
+let [major, minor] = process.versions.node.split(".");
+if (+major < 12 || +major === 12 && +minor < 17 || ...
+\end{minted}
+
+\textbf{Form 1} on an array from \texttt{split}, with the third item
+(the patch version) ignored. Without destructuring:
+\texttt{const\ parts\ =\ .\allowbreak{}.\allowbreak{}.\allowbreak{}split(".\allowbreak{}");\ let\ major\ =\ parts{[}0{]\allowbreak{}};\ let\ minor\ =\ parts{[}1{]\allowbreak{}};}
+
+Watch out: the values are \textbf{strings} (\texttt{split} gives
+\texttt{{[}\ \allowbreak{}\textquotesingle{}22\allowbreak{}\textquotesingle{},\ \allowbreak{}\textquotesingle{}23\allowbreak{}\textquotesingle{},\ \allowbreak{}\textquotesingle{}4\allowbreak{}\textquotesingle{}\ {]\allowbreak{}}}
+on Node 22.23.4), which is why esbuild writes \texttt{+major} everywhere
+to turn them into numbers. In TypeScript with
+\texttt{noUncheckedIndexedAccess} both would be
+\texttt{string\ \textbar{}\ undefined} (T3).
+
+\hypertarget{case-6-for-const-key-value-of--in-esbuild}{%
+\subsection{\texorpdfstring{Case 6:
+\texttt{for\ (const\ {[}key,\ value{]\allowbreak{}}\ of\ {[}.\allowbreak{}.\allowbreak{}.\allowbreak{}{]\allowbreak{}})}
+in
+esbuild}{Case 6:  in esbuild}}\label{case-6-for-const-key-value-of--in-esbuild}}
+
+\texttt{node\_modules/\allowbreak{}esbuild/\allowbreak{}lib/\allowbreak{}main.\allowbreak{}js:1753}
+
+\begin{minted}{js}
+for (const [key, value] of [["errors", errors], ["warnings", warnings]]) {
+  Object.defineProperty(error, key, { ... value ... })
+\end{minted}
+
+\textbf{Form 12} (pattern in a loop), over a hand-written array of pairs
+instead of \texttt{Object.\allowbreak{}entries}. Without destructuring:
+\texttt{for\ (const\ pair\ of\ list)\ \{\ const\ key\ =\ pair{[}0{]\allowbreak{}};\ const\ value\ =\ pair{[}1{]\allowbreak{}};\ .\allowbreak{}.\allowbreak{}.\allowbreak{}\ \}}.
+It gives the same pairs as
+\texttt{Object.\allowbreak{}entries(\{\ errors,\ warnings\ \})}.
+
+\hypertarget{case-7-card-classname-props--in-shadcnui-react-props-and-children}{%
+\subsection{\texorpdfstring{Case 7:
+\texttt{Card(\{\ className,\ .\allowbreak{}.\allowbreak{}.\allowbreak{}props\ \})}
+in shadcn/ui, React props and
+children}{Case 7:  in shadcn/ui, React props and children}}\label{case-7-card-classname-props--in-shadcnui-react-props-and-children}}
+
+\texttt{apps/\allowbreak{}v4/\allowbreak{}registry/\allowbreak{}new-york-v4/\allowbreak{}ui/\allowbreak{}card.\allowbreak{}tsx:4}
+
+\begin{minted}{tsx}
+function Card({ className, ...props }: React.ComponentProps<"div">) {
+  return (
+    <div
+      data-slot="card"
+      className={cn("flex flex-col gap-6 rounded-xl border ...", className)}
+      {...props}
+    />
+  )
+}
+\end{minted}
+
+\textbf{Form 11 + form 8} (rest in the parameter), then \textbf{spread}
+onto the DOM element, the exact pattern of P4, typed with
+\texttt{ComponentProps\textless{}\allowbreak{}\allowbreak{}\textquotesingle{}div\allowbreak{}\textquotesingle{}\textgreater{}\allowbreak{}}
+like P7.
+
+\textbf{Props and children here:} only \texttt{className} is taken out
+by name. \textbf{children is never named}, but it still works: in
+\texttt{\textless{}\allowbreak{}Card\textgreater{}\allowbreak{}Hello\textless{}\allowbreak{}/\allowbreak{}Card\textgreater{}\allowbreak{}}
+the content arrives as \texttt{props.\allowbreak{}children}, the rest
+pattern collects it into \texttt{props} together with \texttt{id},
+\texttt{onClick} and the rest, and
+\texttt{\{.\allowbreak{}.\allowbreak{}.\allowbreak{}props\}} puts it
+back on the
+\texttt{\textless{}\allowbreak{}div\textgreater{}\allowbreak{}} as its
+\texttt{children}. This is P2 in real code: children is only a prop, so
+it travels like any other prop.
+
+\texttt{className} is taken out because it must be \textbf{merged} with
+the card's own classes; if it stayed in \texttt{props}, the spread
+(written after \texttt{className=}) would overwrite the card's classes
+(the ``after the spread wins'' rule from P4).
+
+\hypertarget{case-8-where-destructuring-makes-the-code-worse-undo-in-assignment-3}{%
+\subsection{Case 8: where destructuring makes the code worse (Undo in
+Assignment
+3)}\label{case-8-where-destructuring-makes-the-code-worse-undo-in-assignment-3}}
+
+\texttt{assignment3/\allowbreak{}src/\allowbreak{}taskReducer.\allowbreak{}ts:71}
+
+\begin{minted}{ts}
+case 'undo': {
+  if (state.past.length === 0) return state
+  return {
+    ...state,
+    tasks: state.past[state.past.length - 1],
+    past: state.past.slice(0, -1),
+  }
+}
+\end{minted}
+
+The code needs the \textbf{last} item and \textbf{everything before it}.
+The pattern that looks natural is not allowed:
+
+\begin{minted}{js}
+const [...earlier, last] = state.past
+\end{minted}
+
+\begin{minted}{text}
+SyntaxError: Rest element must be last element
+\end{minted}
+
+A rest element can only be at the end. A version that does work uses a
+computed key (form 10) with \texttt{length}:
+
+\begin{minted}{js}
+const { length, [length - 1]: last } = state.past
+\end{minted}
+
+It runs (on
+\texttt{{[}{[}\allowbreak{}\textquotesingle{}a\allowbreak{}\textquotesingle{}{]\allowbreak{}},\ {[}\allowbreak{}\textquotesingle{}b\allowbreak{}\textquotesingle{}{]\allowbreak{}},\ {[}\allowbreak{}\textquotesingle{}c\allowbreak{}\textquotesingle{}{]\allowbreak{}}{]\allowbreak{}}}
+it gives
+\texttt{{[}\ \allowbreak{}\textquotesingle{}c\allowbreak{}\textquotesingle{}\ {]\allowbreak{}}}),
+but it is much harder to read than
+\texttt{state.\allowbreak{}past{[}state.\allowbreak{}past.\allowbreak{}length\ -\ 1{]\allowbreak{}}},
+and it creates a variable \texttt{length} for nothing. So here
+destructuring makes the code \textbf{worse}, and the plain index (or
+\texttt{state.\allowbreak{}past.\allowbreak{}at(-1)}) is the better
+choice. Destructuring is good at ``the first few and the rest'', not at
+``the last one''.
+
+\hypertarget{bonus-4-git-repository}{%
+\section{Bonus 4: Git repository}\label{bonus-4-git-repository}}
+
+Bonus 4: Git repository,
+\url{https://github.com/eesmaeroz/assignment4-destructuring}
+
+\begin{itemize}
+\item
+  \texttt{.\allowbreak{}gitignore} leaves out \texttt{node\_modules}
+  (and \texttt{dist}).
+\item
+  It runs after a fresh clone:
+
+  \begin{minted}{text}
+  git clone https://github.com/eesmaeroz/assignment4-destructuring.git
+  cd assignment4-destructuring
+  npm install
+  npm run all
+  \end{minted}
+\item
+  The history is in steps: project setup, JavaScript examples,
+  TypeScript examples and compiler errors, the field guide with the real
+  output, then this section.
+\end{itemize}
+
+\hypertarget{my-own-log}{%
+\section{My own log}\label{my-own-log}}
+
+\hypertarget{1-npm-install-could-not-find-packagejson}{%
+\subsection{\texorpdfstring{1. \texttt{npm\ install} could not find
+package.json}{1.  could not find package.json}}\label{1-npm-install-could-not-find-packagejson}}
+
+I ran \texttt{npm\ install} and got:
+
+\begin{minted}{text}
+npm error enoent Could not read package.json: Error: ENOENT: no such file or directory,
+open 'C:\Users\eesma\Desktop\assignment4\package.json'
+\end{minted}
+
+The zip already had an \texttt{assignment4} folder in it. When I opened
+it on my computer, npm looked in the wrong folder. When I went inside
+with \texttt{cd}, it was fixed.
+
+\hypertarget{2-npm-did-not-run-esbuilds-install-script}{%
+\subsection{2. npm did not run esbuild's install
+script}\label{2-npm-did-not-run-esbuilds-install-script}}
+
+\texttt{npm\ install} finished, but printed:
+
+\begin{minted}{text}
+npm warn install-scripts 1 package has install scripts not yet covered by allowScripts:
+npm warn install-scripts   esbuild@0.28.2 (postinstall: node install.js)
+\end{minted}
+
+My npm does not run install scripts of packages until I approve them.
+\texttt{tsx} uses esbuild, so I ran \texttt{npm\ run\ all} to check, and
+it still worked. Not about destructuring, but it was the first thing
+that went wrong.
+
+\hypertarget{3-removing---from-a-parameter-pattern-crashed-the-whole-file}{%
+\subsection{\texorpdfstring{3. Removing \texttt{=\ \{\}} from a
+parameter pattern crashed the whole
+file}{3. Removing  from a parameter pattern crashed the whole file}}\label{3-removing---from-a-parameter-pattern-crashed-the-whole-file}}
+
+In \texttt{js/\allowbreak{}params.\allowbreak{}mjs} I removed
+\texttt{=\ \{\}} from
+\texttt{function\ startTimer(\{\ subject,\ minutes\ =\ 25,\ breakMinutes\ =\ 5\ \}\ =\ \{\})}
+and ran \texttt{node\ js/\allowbreak{}params.\allowbreak{}mjs}:
+
+\begin{minted}{text}
+form 11: Calculus: 50 min work, 5 min break
+TypeError: Cannot destructure property 'subject' of 'undefined' as it is undefined.
+    at startTimer (.../js/params.mjs:6:23)
+    at .../js/params.mjs:10:39
+\end{minted}
+
+The function asks me for something (like a box) and says it will take
+\texttt{subject} and \texttt{minutes} out of it. In the
+\texttt{startTimer()} call the box never comes, and when it tries to
+open a box that does not exist, the program crashes right away. But
+\texttt{=\ \{\}} says: if the box does not come, take it as an empty
+box. And \texttt{minutes\ =\ 25} means: the box is there, but if there
+is nothing called \texttt{minutes} inside, use 25. So we are using two
+different plans.
+
+\hypertarget{4-react-warnings-were-in-my-terminal-but-not-in-outputtxt}{%
+\subsection{4. React warnings were in my terminal but not in
+output.txt}\label{4-react-warnings-were-in-my-terminal-but-not-in-outputtxt}}
+
+When I ran \texttt{npm\ run\ all} in the terminal, some lines appeared
+between my output, for example:
+
+\begin{minted}{text}
+Functions are not valid as a React child. This may happen if you return children
+instead of <children /> from render. ...
+\end{minted}
+
+React writes these warnings with \texttt{console.\allowbreak{}error},
+which goes to stderr. \texttt{\textgreater{}\allowbreak{}} only
+redirects stdout, so I had to add
+\texttt{2\textgreater{}\allowbreak{}\ output-stderr.\allowbreak{}txt} to
+keep them.
+
+\hypertarget{5-removing-the--before-the-swap-gave-a-different-error-than-i-had-in-pitfall-7}{%
+\subsection{\texorpdfstring{5. Removing the \texttt{;} before the swap
+gave a different error than I had in pitfall
+7}{5. Removing the  before the swap gave a different error than I had in pitfall 7}}\label{5-removing-the--before-the-swap-gave-a-different-error-than-i-had-in-pitfall-7}}
+
+In \texttt{js/\allowbreak{}arrays.\allowbreak{}mjs} I removed the
+\texttt{;} at the start of the swap line (form 3) and ran
+\texttt{node\ js/\allowbreak{}arrays.\allowbreak{}mjs}:
+
+\begin{minted}{text}
+[morningLine, eveningLine] = [eveningLine, morningLine]
+              ^
+ReferenceError: Cannot access 'eveningLine' before initialization
+    at .../js/arrays.mjs:41:15
+\end{minted}
+
+The line before it is
+\texttt{let\ eveningLine\ =\ \allowbreak{}\textquotesingle{}Üsküdar\allowbreak{}\textquotesingle{}},
+with no semicolon. JavaScript does not insert one before \texttt{{[}},
+so the two lines are read as one:
+
+\begin{minted}{js}
+let eveningLine = 'Üsküdar'[morningLine, eveningLine] = [eveningLine, morningLine]
+\end{minted}
+
+So \texttt{eveningLine} is read inside its own \texttt{let} declaration,
+before it has a value, and that is a ReferenceError. In pitfall 7 the
+same mistake gave a SyntaxError
+(\texttt{Invalid\ left-hand\ side\ in\ assignment}), because there the
+line before ended with \texttt{m\ +\ n}, and
+\texttt{m\ +\ n{[}.\allowbreak{}.\allowbreak{}.\allowbreak{}{]\allowbreak{}}\ =\ .\allowbreak{}.\allowbreak{}.\allowbreak{}}
+cannot be parsed at all. Here
+\texttt{\allowbreak{}\textquotesingle{}Üsküdar\allowbreak{}\textquotesingle{}{[}.\allowbreak{}.\allowbreak{}.\allowbreak{}{]\allowbreak{}}}
+is a valid thing to assign to, so the file parses and fails only when it
+runs. What I learned: the missing \texttt{;} does not have one fixed
+error; the error depends on what the line before ends with. That is why
+I always start a swap line with \texttt{;}.
+
+\end{document}

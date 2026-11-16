@@ -1,2 +1,13 @@
 node_modules
 dist
+
+# LaTeX build files (the .tex source and the .pdf are kept)
+latex/guide-body.md
+latex/_minted-*/
+latex/*.aux
+latex/*.log
+latex/*.out
+latex/*.toc
+latex/*.fls
+latex/*.fdb_latexmk
+latex/*.xdv

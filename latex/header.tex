@@ -1,0 +1,28 @@
+% Meryem Esma Eröz, 2200005798
+% Extra preamble for the field guide: code style, page header, table of contents spacing.
+\usepackage{xcolor}
+\usepackage[newfloat]{minted}
+\definecolor{codeframe}{HTML}{8C959F}
+\setminted{
+  fontsize=\small,
+  breaklines=true,
+  breakanywhere=true,
+  frame=leftline,
+  rulecolor=\color{codeframe},
+  framerule=1.2pt,
+  framesep=6pt,
+  xleftmargin=4pt,
+  style=friendly,
+}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small Destructuring Field Guide}
+\fancyhead[R]{\small Meryem Esma Eröz, 2200005798}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\setlength{\headheight}{14pt}
+\sloppy
+\makeatletter
+\renewcommand*\l@subsection{\@dottedtocline{2}{1.5em}{2.8em}}
+\makeatother
