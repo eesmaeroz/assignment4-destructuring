@@ -46,3 +46,12 @@ const fixed = ['OOP', 'Calculus'] as const
 const pair: [string, number] = ['OOP', 3]
 const [courseName, hours, room] = pair
 console.log(courseName, hours, room)
+
+// E17 (Bonus 2, D4): the type-level check really checks. Last<Trip> is boolean, not string.
+type Last<T extends readonly unknown[]> = T extends readonly [...unknown[], infer L] ? L
+  : undefined
+type Equal<A, B> = (<G>() => G extends A ? 1 : 2) extends (<G>() => G extends B ? 1 : 2)
+  ? true
+  : false
+type Trip = [stop: string, minutes: number, ferry: boolean]
+export const wrongLast: Equal<Last<Trip>, string> = true

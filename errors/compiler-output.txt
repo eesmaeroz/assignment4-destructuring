@@ -22,3 +22,4 @@ errors/types-errors.ts(38,9): error TS2339: Property 'teacher' does not exist on
 errors/types-errors.ts(43,9): error TS2540: Cannot assign to '0' because it is a read-only property.
 errors/types-errors.ts(43,19): error TS2540: Cannot assign to '1' because it is a read-only property.
 errors/types-errors.ts(47,27): error TS2493: Tuple type '[string, number]' of length '2' has no element at index '2'.
+errors/types-errors.ts(57,14): error TS2322: Type 'true' is not assignable to type 'false'.

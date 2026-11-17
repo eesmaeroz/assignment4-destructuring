@@ -26,3 +26,9 @@
 \makeatletter
 \renewcommand*\l@subsection{\@dottedtocline{2}{1.5em}{2.8em}}
 \makeatother
+% The ship emoji in Bonus 2 (D1) is not in DejaVu; take it from Unifont when it is installed.
+\usepackage{newunicodechar}
+\IfFontExistsTF{Unifont Upper}{%
+  \newfontfamily\emojifont{Unifont Upper}%
+  \newunicodechar{🚢}{{\emojifont 🚢}}%
+}{}

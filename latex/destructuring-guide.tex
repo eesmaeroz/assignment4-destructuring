@@ -86,6 +86,12 @@
 \makeatletter
 \renewcommand*\l@subsection{\@dottedtocline{2}{1.5em}{2.8em}}
 \makeatother
+% The ship emoji in Bonus 2 (D1) is not in DejaVu; take it from Unifont when it is installed.
+\usepackage{newunicodechar}
+\IfFontExistsTF{Unifont Upper}{%
+  \newfontfamily\emojifont{Unifont Upper}%
+  \newunicodechar{🚢}{{\emojifont 🚢}}%
+}{}
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
@@ -122,9 +128,9 @@
 \setcounter{tocdepth}{2}
 \tableofcontents
 }
-Bonuses claimed: \textbf{Bonus 1: LaTeX}, \textbf{Bonus 3: Real code}
-and \textbf{Bonus 4: Git repository} (the three sections are before My
-own log).
+Bonuses claimed: \textbf{Bonus 1: LaTeX}, \textbf{Bonus 2: Depth},
+\textbf{Bonus 3: Real code} and \textbf{Bonus 4: Git repository} (the
+four sections are before My own log).
 
 My data in the examples: ferry trips from Eminönü, a Turkish playlist,
 books on my reading list, my course schedule and cards for a student
@@ -138,6 +144,7 @@ npm install
 npm run all      # runs the JS and TS examples
 npm run check    # type-checks in strict mode
 npm run errors   # compiles errors/, the lines that are SUPPOSED to fail (always exits 0)
+npm run depth    # Bonus 2 experiments (js/depth.mjs and ts/depth.ts)
 \end{minted}
 
 Node 22, TypeScript 5.8, React 19. \texttt{output.\allowbreak{}txt} is
@@ -153,8 +160,8 @@ rejected lines are in
 \subsection{Files}\label{files}}
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.4850}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.4850}}@{}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.3864}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.5836}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 File
@@ -178,8 +185,11 @@ types \\
 \texttt{ts/\allowbreak{}types.\allowbreak{}ts} & T1--T5 \\
 \texttt{ts/\allowbreak{}props.\allowbreak{}tsx} & P1--P7 typed \\
 \texttt{errors/\allowbreak{}types-errors.\allowbreak{}ts},
-\texttt{errors/\allowbreak{}props-errors.\allowbreak{}tsx} & E1--E16:
+\texttt{errors/\allowbreak{}props-errors.\allowbreak{}tsx} & E1--E17:
 code the compiler rejects, on purpose \\
+\texttt{js/\allowbreak{}depth.\allowbreak{}mjs},
+\texttt{ts/\allowbreak{}depth.\allowbreak{}ts} & Bonus 2: iterables,
+evaluation order, other places, type-level patterns \\
 \end{longtable}
 
 \hypertarget{one-idea-for-the-whole-guide}{%
@@ -1438,7 +1448,7 @@ title page instead). \texttt{-shell-escape} is needed because
   every entry is a link (\texttt{hyperref}), as are the URLs.
 \item
   The result compiles with \textbf{no errors and no overfull boxes}
-  (checked in \texttt{destructuring-guide.\allowbreak{}log}): 19 pages,
+  (checked in \texttt{destructuring-guide.\allowbreak{}log}): 22 pages,
   A4.
 \end{itemize}
 
@@ -1453,6 +1463,320 @@ because it does not handle characters above U+00FF. ö and ü were fine.
 and
 \texttt{\allowbreak{}\textquotesingle{}Kadıköy\allowbreak{}\textquotesingle{}}
 are correct.
+
+\hypertarget{bonus-2-depth}{%
+\section{Bonus 2: Depth}\label{bonus-2-depth}}
+
+Bonus 2: Depth
+
+Four directions, each with my own code and the real output. The
+JavaScript experiments are in
+\texttt{js/\allowbreak{}depth.\allowbreak{}mjs}, the type-level ones in
+\texttt{ts/\allowbreak{}depth.\allowbreak{}ts}; both run with
+\texttt{npm\ run\ depth} (not part of \texttt{npm\ run\ all}, so
+\texttt{output.\allowbreak{}txt} stays the output of the required part).
+
+\hypertarget{d1-what-an-array-pattern-really-calls-on-the-value}{%
+\subsection{D1. What an array pattern really calls on the
+value}\label{d1-what-an-array-pattern-really-calls-on-the-value}}
+
+I wrote an iterable ``spy'' that logs every call the pattern makes on
+it:
+
+\begin{minted}{js}
+function spy(label, items) {
+  return {
+    [Symbol.iterator]() {
+      console.log(`  ${label}: [Symbol.iterator]() called`)
+      let i = 0
+      return {
+        next() { /* logs, then returns { done, value } */ },
+        return() { console.log(`  ${label}: return() called (the pattern stopped early)`) /* ... */ },
+      }
+    },
+  }
+}
+const [a1, b1] = spy('stops', ['Kadıköy', 'Üsküdar', 'Adalar'])
+const [a2, b2] = spy('short', ['Kadıköy'])
+const [first, ...rest] = spy('rest', ['Kadıköy', 'Üsküdar', 'Adalar'])
+const [] = spy('empty', ['Kadıköy'])
+\end{minted}
+
+\begin{minted}{text}
+D1 two variables from three items:
+  stops: [Symbol.iterator]() called
+  stops: next() -> "Kadıköy"
+  stops: next() -> "Üsküdar"
+  stops: return() called (the pattern stopped early)
+D1 result: Kadıköy Üsküdar
+D1 two variables from one item:
+  short: [Symbol.iterator]() called
+  short: next() -> "Kadıköy"
+  short: next() -> done
+D1 result: Kadıköy undefined
+D1 rest reads everything:
+  rest: [Symbol.iterator]() called
+  rest: next() -> "Kadıköy"
+  rest: next() -> "Üsküdar"
+  rest: next() -> "Adalar"
+  rest: next() -> done
+D1 result: Kadıköy [ 'Üsküdar', 'Adalar' ]
+D1 empty pattern:
+  empty: [Symbol.iterator]() called
+  empty: return() called (the pattern stopped early)
+\end{minted}
+
+\textbf{Why:} an array pattern never uses \texttt{{[}0{]\allowbreak{}}},
+\texttt{{[}1{]\allowbreak{}}} or \texttt{length}. It calls
+\texttt{value{[}Symbol.\allowbreak{}iterator{]\allowbreak{}}()} once,
+then \texttt{next()} once per element in the pattern. If the pattern is
+finished while the iterator is not (\texttt{done} was never seen), it
+calls \texttt{return()} to close it, so a generator or a file reader can
+clean up. With one item too few, \texttt{next()} says \texttt{done} and
+the variable becomes \texttt{undefined}, and nothing needs closing. A
+rest element keeps calling \texttt{next()} until \texttt{done}. Even
+\texttt{const\ {[}{]\allowbreak{}}\ =\ x} asks for an iterator and
+closes it at once. This is also why pitfall 6
+(\texttt{\{\ 0:\ \allowbreak{}\textquotesingle{}a\allowbreak{}\textquotesingle{},\ length:\ 1\ \}})
+throws ``is not iterable'': an array-like object has no
+\texttt{Symbol.\allowbreak{}iterator}.
+
+So any iterable works, not only arrays:
+
+\begin{minted}{js}
+const [c1, c2, ...cRest] = 'Dönence'
+const [emoji] = '🚢 ferry'
+const [s1, s2] = new Set(['OOP', 'Calculus', 'OOP'])
+const [[day, room]] = new Map([['Monday', 'A-204']])
+function* countdown() { console.log('  generator: started'); yield 3; yield 2; console.log('  generator: this line never runs'); yield 1 }
+const [g1, g2] = countdown()
+function* forever() { let n = 1; while (true) yield n++ }
+const [n1, n2, n3] = forever()
+const { 0: zero, length, [length - 1]: last } = ['Eminönü', 'Karaköy', 'Kadıköy']
+\end{minted}
+
+\begin{minted}{text}
+D1 string: D ö [ 'n', 'e', 'n', 'c', 'e' ]
+D1 emoji (one code point, not two halves): 🚢 | [0] gives: "\ud83d"
+D1 Set (no duplicates, insertion order): OOP Calculus
+D1 Map (each item is a [key, value] pair): Monday A-204
+  generator: started
+D1 generator (lazy, only two values made): 3 2
+D1 infinite generator, first three: 1 2 3
+D1 object pattern on an array: Eminönü 3 Kadıköy
+\end{minted}
+
+\begin{itemize}
+\tightlist
+\item
+  A string iterates by \textbf{code points}, so
+  \texttt{{[}emoji{]\allowbreak{}}} gets the whole ship, while
+  \texttt{\allowbreak{}\textquotesingle{}🚢\allowbreak{}\textquotesingle{}{[}0{]\allowbreak{}}}
+  is only half of it (one UTF-16 unit, \texttt{\textbackslash{}ud83d}).
+  Here destructuring is \emph{more correct} than indexing.
+\item
+  A \texttt{Map} gives \texttt{{[}key,\ value{]\allowbreak{}}} pairs, so
+  a nested pattern
+  \texttt{{[}{[}day,\ room{]\allowbreak{}}{]\allowbreak{}}} takes the
+  first pair apart (this is form 12 without the loop).
+\item
+  The generator never prints ``this line never runs'': after two values
+  the pattern calls \texttt{return()}, so the generator stops at its
+  second \texttt{yield}. That is also why
+  \texttt{{[}n1,\ n2,\ n3{]\allowbreak{}}\ =\ forever()} does not hang.
+\item
+  An \textbf{object} pattern does not iterate at all; it reads
+  properties. On an array it can read \texttt{0}, \texttt{length}, and
+  even the last item with a computed key
+  (\texttt{{[}length\ -\ 1{]\allowbreak{}}}), because \texttt{length} is
+  already a variable when the next property is read.
+\end{itemize}
+
+\hypertarget{d2-when-defaults-are-evaluated-and-in-which-order}{%
+\subsection{D2. When defaults are evaluated, and in which
+order}\label{d2-when-defaults-are-evaluated-and-in-which-order}}
+
+\begin{minted}{js}
+const { x = expensiveDefault('x'), y = expensiveDefault('y') } = { x: 'given' }
+const [start = 9, end = start + 1, label = `${start}-${end}`] = []
+eval('const [p = q, q = 1] = []')
+const target = { set a(v) { log.push(`set a = ${v}`) }, set b(v) { log.push(`set b = ${v}`) } }
+;[target.a, target.b] = (log.push('right side evaluated'), [1, 2])
+function addTask(title, createdAt = (calls++, Date.now())) { return { title, createdAt } }
+addTask('a'); addTask('b')
+\end{minted}
+
+\begin{minted}{text}
+D2 default is computed only when needed:
+  default for y computed (call 1)
+D2 result: given y-default | calls: 1
+D2 left to right, and a later default can use an earlier variable:
+D2 result: 9 10 9-10
+D2 earlier default uses a later variable: ReferenceError - Cannot access 'q' before initialization
+D2 the right side is evaluated first, then targets left to right:
+D2 result: [ 'right side evaluated', 'set a = 1', 'set b = 2' ]
+D2 parameter default evaluated per call: 2 times
+\end{minted}
+
+\textbf{Why:}
+
+\begin{itemize}
+\tightlist
+\item
+  A default is an expression that runs \textbf{only when the value is
+  \texttt{undefined}}. \texttt{x} was given, so
+  \texttt{expensiveDefault(\allowbreak{}\textquotesingle{}x\allowbreak{}\textquotesingle{})}
+  never ran (one call, not two). A default with a side effect or a cost
+  is therefore safe to write: it costs nothing when the value is there.
+\item
+  The elements are handled \textbf{left to right}, and each variable
+  exists as soon as its element is done, so \texttt{end\ =\ start\ +\ 1}
+  can use \texttt{start}. The other way round, \texttt{p\ =\ q} reads
+  \texttt{q} while \texttt{q} is still in its temporal dead zone
+  (declared by \texttt{const}, not yet initialised), which is the same
+  \texttt{ReferenceError} as in my own log entry 5.
+\item
+  In a destructuring \textbf{assignment} the right side is evaluated
+  first; then each target is assigned in order (the setters log
+  \texttt{a} before \texttt{b}).
+\item
+  A \textbf{parameter} default runs on every call that leaves the
+  argument out (two calls, two evaluations). This is the opposite of the
+  \texttt{Date.\allowbreak{}now()} problem in Assignment 5's schema,
+  where a JavaScript default written in the table definition runs only
+  once.
+\end{itemize}
+
+\hypertarget{d3-destructuring-in-other-places}{%
+\subsection{D3. Destructuring in other
+places}\label{d3-destructuring-in-other-places}}
+
+\begin{minted}{js}
+try { JSON.parse('{ broken') } catch ({ name, message }) { /* ... */ }
+for (const key in course) keysIn.push(key)
+for (const [key, value] of Object.entries(course)) pairsOf.push(`${key}=${value}`)
+for (const [k, v] in { ab: 1 }) console.log(/* ... */, k, v)
+;({ title: box.heading, tags: [arr[0], ...arr[1]] } = { title: 'Dune', tags: ['sf', 'classic', 'desert'] })
+;[pair.left, pair.right] = [pair.right, pair.left]
+const { basename, extname: ext = () => '?' } = await import('node:path')
+await asModule("import { basename: base } from 'node:path'")
+await asModule("import { basename as base } from 'node:path'; export const r = base('/x/y.md')")
+\end{minted}
+
+\begin{minted}{text}
+D3 catch ({ name, message }): SyntaxError - Expected property name or '}' in JSON at position 2 (line 1 column 3)
+D3 for...in gives keys: [ 'code', 'credits' ] | for...of + entries gives pairs: [ 'code=SEN0415', 'credits=6' ]
+D3 for...in pattern on the key "ab": a b
+D3 targets are properties and array slots: { heading: 'Dune' } [ 'sf', [ 'classic', 'desert' ] ]
+D3 swap two properties: { left: 'Üsküdar', right: 'Kadıköy' }
+D3 destructuring the module object: README.md .md
+D3 import { a: b }: SyntaxError - Unexpected token ':'
+D3 import { a as b } works: y.md
+\end{minted}
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{catch\ (\{\ name,\ message\ \})} is form 11 for the error
+  object: the catch clause is a parameter, so a pattern is allowed
+  there.
+\item
+  \textbf{\texttt{for.\allowbreak{}.\allowbreak{}.\allowbreak{}in}
+  against \texttt{for.\allowbreak{}.\allowbreak{}.\allowbreak{}of}.}
+  \texttt{for.\allowbreak{}.\allowbreak{}.\allowbreak{}in} gives the
+  \textbf{keys} (strings), so a pattern on it destructures the key
+  string itself: \texttt{{[}k,\ v{]\allowbreak{}}} on the key
+  \texttt{"ab"} gives \texttt{a} and \texttt{b}, which is almost never
+  what you want. The pairs come from
+  \texttt{for.\allowbreak{}.\allowbreak{}.\allowbreak{}of} over
+  \texttt{Object.\allowbreak{}entries}.
+\item
+  An assignment pattern accepts \textbf{any assignment target}, not only
+  variable names: a property (\texttt{box.\allowbreak{}heading}), an
+  array slot (\texttt{arr{[}0{]\allowbreak{}}}), and a rest into a slot
+  (\texttt{.\allowbreak{}.\allowbreak{}.\allowbreak{}arr{[}1{]\allowbreak{}}}
+  received the array
+  \texttt{{[}\ \allowbreak{}\textquotesingle{}classic\allowbreak{}\textquotesingle{},\ \allowbreak{}\textquotesingle{}desert\allowbreak{}\textquotesingle{}\ {]\allowbreak{}}}).
+  That is why form 3's swap also works on two properties.
+\item
+  \texttt{import\ \{\ basename\ \}\ from\ .\allowbreak{}.\allowbreak{}.\allowbreak{}}
+  \textbf{looks like} destructuring but is a different syntax: renaming
+  uses \texttt{as}, and the destructuring colon is a
+  \texttt{SyntaxError}. I loaded both versions as small modules from
+  \texttt{data:} URLs to see the real error. Destructuring the
+  \textbf{module object} from a dynamic \texttt{import()} is real
+  destructuring, so there a default
+  (\texttt{=\ ()\ =\textgreater{}\allowbreak{}\ \allowbreak{}\textquotesingle{}?\allowbreak{}\textquotesingle{}})
+  and a colon rename are allowed.
+\end{itemize}
+
+\hypertarget{d4-typescript-taking-types-apart-with-infer}{%
+\subsection{\texorpdfstring{D4. TypeScript: taking types apart with
+\texttt{infer}}{D4. TypeScript: taking types apart with }}\label{d4-typescript-taking-types-apart-with-infer}}
+
+A pattern takes a value apart; a conditional type with \texttt{infer}
+takes a \textbf{type} apart in the same shape
+(\texttt{ts/\allowbreak{}depth.\allowbreak{}ts}):
+
+\begin{minted}{ts}
+type First<T extends readonly unknown[]> = T extends readonly [infer F, ...unknown[]] ? F : undefined
+type Rest<T extends readonly unknown[]> = T extends readonly [unknown, ...infer R] ? R : []
+type Last<T extends readonly unknown[]> = T extends readonly [...unknown[], infer L] ? L : undefined
+type Trip = [stop: string, minutes: number, ferry: boolean]
+
+const check1: Equal<First<Trip>, string> = true
+const check2: Equal<Rest<Trip>, [minutes: number, ferry: boolean]> = true
+const check3: Equal<Last<Trip>, boolean> = true
+const check4: Equal<First<[]>, undefined> = true
+
+const [stop, ...others] = trip          // the value version
+const firstStop: First<Trip> = stop     // the type version agrees
+const otherParts: Rest<Trip> = others
+
+type TimerArgs = Parameters<typeof startTimer>   // [{ subject: string; minutes?: number }]
+type TimerOptions = First<TimerArgs>
+\end{minted}
+
+\begin{minted}{text}
+D4 First/Rest/Last of Trip compile: true true true true
+D4 value and type agree: Kadıköy [ 25, true ]
+D4 PropType<Book, "tags"> is string[]: true
+D4 options type taken from the function itself: Calculus: 25 min true
+D4 call with [{"subject":"OOP","minutes":50}]
+D4 result: OOP: 50 min
+\end{minted}
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{Equal\textless{}\allowbreak{}A,\ B\textgreater{}\allowbreak{}}
+  is \texttt{true} only when the two types are identical, so each
+  \texttt{const\ checkN\ =\ true} line is a test that runs in the
+  compiler: \texttt{npm\ run\ check} passes only if all of them hold. To
+  be sure the check is not always \texttt{true}, I added a wrong one as
+  \textbf{E17} in
+  \texttt{errors/\allowbreak{}types-errors.\allowbreak{}ts}
+  (\texttt{Equal\textless{}\allowbreak{}Last\textless{}\allowbreak{}Trip\textgreater{}\allowbreak{},\ string\textgreater{}\allowbreak{}}),
+  and \texttt{npm\ run\ errors} rejects it:
+  \texttt{Type\ \allowbreak{}\textquotesingle{}true\allowbreak{}\textquotesingle{}\ is\ not\ assignable\ to\ type\ \allowbreak{}\textquotesingle{}false\allowbreak{}\textquotesingle{}.\allowbreak{}}
+\item
+  \textbf{\texttt{Last} works at the type level but not at the value
+  level.}
+  \texttt{const\ {[}.\allowbreak{}.\allowbreak{}.\allowbreak{}earlier,\ last{]\allowbreak{}}}
+  is a \texttt{SyntaxError} (Bonus 3, case 8), but the tuple type
+  \texttt{{[}.\allowbreak{}.\allowbreak{}.\allowbreak{}unknown{[}{]\allowbreak{}},\ infer\ L{]\allowbreak{}}}
+  is fine, because a tuple \emph{type} may have its rest element in the
+  middle.
+\item
+  \texttt{Parameters\textless{}\allowbreak{}typeof\ startTimer\textgreater{}\allowbreak{}}
+  gives the parameter list as a tuple, and
+  \texttt{First\textless{}\allowbreak{}.\allowbreak{}.\allowbreak{}.\allowbreak{}\textgreater{}\allowbreak{}}
+  then takes the options object type out of it, so the options type
+  comes from the function and cannot drift away from it.
+  \texttt{logged(fn)} uses the same idea with a rest parameter
+  \texttt{(.\allowbreak{}.\allowbreak{}.\allowbreak{}args:\ A)} to
+  forward any call with exactly the same argument types.
+\end{itemize}
 
 \hypertarget{bonus-3-real-code}{%
 \section{Bonus 3: Real code}\label{bonus-3-real-code}}
